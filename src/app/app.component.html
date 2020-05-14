@@ -1,0 +1,233 @@
+<!-- <mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Aura Gorgeous System</span>
+    <span class="example-spacer"></span>
+    <button mat-button   [routerLink]="['/info']" ><mat-icon>touch_app</mat-icon>Info</button>
+  </mat-toolbar-row>
+</mat-toolbar> -->
+
+<!-- <mat-drawer-container style="height: 100%">
+  <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+    <div id="sidenav">
+    <a mat-button   [routerLink]="['/login']" ><mat-icon>supervised_user_circle</mat-icon> Login</a><br>
+    <a mat-button   [routerLink]="['/main']" ><mat-icon>dashboard</mat-icon> Serial Section</a><br>
+    </div>
+  </mat-drawer>
+
+  <div>
+    <button type="button" mat-button (click)="drawer.toggle()">
+      <i class="material-icons">reorder</i>
+    </button>
+
+    <div style="padding: 20px"> -->
+<!-- 
+      <router-outlet></router-outlet> -->
+      
+<!--     </div>
+  </div>
+
+
+</mat-drawer-container>
+ -->
+
+<mat-card style="max-width: 800px;margin: 25px auto;background-color: #f2f3f7;" id="boxx">
+   <p style="font-size: 25px;padding-top: 30px;padding-bottom: 5px;text-align: center;">USL Online Registration</p>
+
+<style type="text/css">
+  @media only screen and (max-width: 800px) {
+  .fullwidth {
+    width: 100% !important;
+    margin-right: 0px;
+  }
+  #boxx{
+    margin: 25px 10px 25px 10px;
+  }
+}
+</style>
+
+    <mat-progress-bar mode="indeterminate" style="margin: 50px 20px 20px 20px;width: calc(100% - 40px)"  *ngIf='loading'></mat-progress-bar>
+    <p style="text-align: center; padding-bottom: 50px"  *ngIf='loading'>Loading Data...</p>
+
+
+    <table style="width: 100%" *ngIf='loading==false'>
+      <tr> 
+        <td style="width: 100%;padding-left: 30px;padding-right: 30px;margin-top: -10px">
+          <mat-form-field appearance="outline" style="width: 100%">
+            <mat-label>Select your Program Level</mat-label>
+            <mat-select [(ngModel)]="proglevelval" (ngModelChange)='check()'>
+              <mat-option *ngFor="let a of proglevel" value="{{a.programLevel}}">{{a.progLevelDesc}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+
+
+    <p style="padding-bottom: 15px;margin-top: -10px;margin-left: 40px;padding-right: 30px" *ngIf="proglevelval=='01'">
+      <mat-checkbox  [(ngModel)]="condition" >I will be 4 years</mat-checkbox>  old by October 31, 2020.
+    </p>
+
+    <p style="padding-bottom: 15px;margin-top: -10px;margin-left: 40px;padding-right: 30px" *ngIf="proglevelval=='02'">
+      <mat-checkbox  [(ngModel)]="condition">I will be 5 years</mat-checkbox>  old by October 31, 2020.
+    </p>
+
+    <p style="padding-bottom: 15px;margin-top: -10px;margin-left: 40px;padding-right: 30px" *ngIf="proglevelval=='04'">
+      <mat-checkbox  [(ngModel)]="condition">I have a </mat-checkbox> general weighted average of at least 80%.
+    </p>
+
+    <p style="padding-bottom: 15px;margin-top: -10px;margin-left: 40px;padding-right: 30px" *ngIf="proglevelval=='05'">
+      <mat-checkbox  [(ngModel)]="condition" >I have a </mat-checkbox> general weighted average of at least 80% with no failing grades in any of the grading peroids.
+    </p>
+    <div *ngIf="proglevelval!=''&&condition">
+    <div *ngIf="proglevelval!=''&&loading==false">
+    <table style="width: 100%;margin-top: -15px">
+      <tr>
+        <td style="width: 50%;padding-right: 30px;padding-left: 30px" colspan="3">
+          <mat-form-field appearance="outline" style="width: 100%">
+              <mat-label>First name</mat-label>
+              <input matInput placeholder="" [(ngModel)]="fname" autocomplete="off">
+          </mat-form-field>
+        </td>
+        
+      </tr>
+    </table>
+    <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px">
+          <mat-form-field appearance="outline" style="width: calc(35% - 10px);margin-right: 10px" class="fullwidth">
+              <mat-label>Middle name</mat-label>
+              <input matInput placeholder="" [(ngModel)]="mname" autocomplete="off">
+          </mat-form-field>
+          <mat-form-field appearance="outline" style="width: calc(40% - 10px);margin-right: 10px" class="fullwidth">
+              <mat-label>Last name</mat-label>
+              <input matInput placeholder="" [(ngModel)]="lname" autocomplete="off" >
+          </mat-form-field>
+          <mat-form-field appearance="outline" style="width: 25%" class="fullwidth">
+              <mat-label>Suffix</mat-label>
+              <input matInput placeholder="" [(ngModel)]="suffix" autocomplete="off">
+          </mat-form-field>
+    </div>
+
+    <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px">
+         
+          <mat-form-field appearance="outline" style="width: calc(35% - 10px);margin-right: 10px" class="fullwidth">
+            <mat-label>Gender</mat-label>
+            <mat-select  [(ngModel)]="gender">
+              <mat-option value="M">Male</mat-option>
+              <mat-option value="F">Female</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline"  style="width: calc(40% - 10px);margin-right: 10px" class="fullwidth">
+          <input readonly matInput [matDatepicker]="picker" placeholder="Birth Date" (click)="picker.open()"  [(ngModel)]="bdate" name="bdate" required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 25%"  class="fullwidth">
+              <mat-label>Contact Number</mat-label>
+              <input matInput autocomplete="off" [(ngModel)]="cnumber">
+          </mat-form-field>
+    </div>
+
+    <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px">
+         
+          
+          <mat-form-field appearance="outline"  style="width: calc(30% - 10px);margin-right: 10px" class="fullwidth">
+              <mat-label>Contact Person</mat-label>
+              <input matInput placeholder="" autocomplete="off" [(ngModel)]="cperson">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" style="width: 50%;margin-right: 10px"  *ngIf="proglevelval!='01'&&proglevelval!='02'&&proglevelval!='03'" class="fullwidth">
+            <mat-label>School Graduated From</mat-label>
+            <input type="text" placeholder="" [(ngModel)]="gradfrom" matInput [matAutocomplete]="auto" (keydown)='keyDownFunction()'>
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let option of schoolstemp" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" style="width: calc(20% - 10px);" class="fullwidth"   *ngIf="proglevelval!='01'&&proglevelval!='02'&&proglevelval!='03'">
+            <mat-label>Year</mat-label>
+            <mat-select  [(ngModel)]="yeargrad">
+              <mat-option *ngFor="let a of currdatearray" value="{{a}}">{{a}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+
+
+    <p style="padding-bottom: 11px;margin-top: -10px;margin-left: 40px;padding-right: 30px" *ngIf="proglevelval=='05'||proglevelval=='04'">
+      <mat-checkbox  [(ngModel)]="top" >I am the top of my class.</mat-checkbox>
+    </p>
+
+    <div *ngIf="proglevelval=='05'">
+      <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px">
+            <mat-form-field appearance="outline" style="width: calc(100% - 10px);margin-right: 10px" class="fullwidth">
+              <mat-label>Select Strand Priority 1</mat-label>
+              <mat-select [(ngModel)]="strandval">
+                <mat-option *ngFor="let a of strand" value="{{a.strandId}}">{{a.strandTitle}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+      </div>
+      <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px">
+           
+            <mat-form-field appearance="outline" style="width: calc(100% - 10px);margin-right: 10px" class="fullwidth">
+              <mat-label>Select Strand Priority 2</mat-label>
+              <mat-select [(ngModel)]="strandval1">
+                <mat-option *ngFor="let a of strand" value="{{a.strandId}}">{{a.strandTitle}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+      </div>
+    </div>
+
+    <div *ngIf="proglevelval=='06'">
+      <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px">
+            <mat-form-field appearance="outline" style="width: calc(100% - 10px);margin-right: 10px" class="fullwidth">
+              <mat-label>Select Current Strand</mat-label>
+              <mat-select [(ngModel)]="collegestrandval">
+                <mat-option *ngFor="let a of strand" value="{{a.strandId}}">{{a.strandTitle}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+      </div>
+    <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px">
+          <mat-form-field appearance="outline" style="width: calc(100% - 10px);margin-right: 10px" class="fullwidth">
+            <mat-label>Select Preferred Course</mat-label>
+            <mat-select [(ngModel)]="courseval">
+              <mat-option *ngFor="let a of courses" value="{{a.programId}}">{{a.course}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+    <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px">
+          <mat-form-field appearance="outline" style="width: calc(100% - 10px);margin-right: 10px" class="fullwidth">
+            <mat-label>Select Alternative Course</mat-label>
+            <mat-select [(ngModel)]="courseval1">
+              <mat-option *ngFor="let a of courses" value="{{a.programId}}">{{a.course}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+    <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px">
+          <mat-form-field appearance="outline" style="width: calc(100% - 10px);margin-right: 10px" class="fullwidth">
+            <mat-label>Select Alternative Course</mat-label>
+            <mat-select [(ngModel)]="courseval2">
+              <mat-option *ngFor="let a of courses" value="{{a.programId}}">{{a.course}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+    </div>
+    <div *ngIf="proglevelval=='07'">
+    <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px">
+          <mat-form-field appearance="outline" style="width: calc(100% - 10px);margin-right: 10px" class="fullwidth">
+            <mat-label>Select Course</mat-label>
+            <mat-select [(ngModel)]="courseval">
+              <mat-option *ngFor="let a of gradcourses" value="{{a.programId}}">{{a.course}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+    </div>
+    <p style="margin-bottom: 15px;margin-top: -10px;margin-left: 40px">
+      <mat-checkbox  [(ngModel)]="accept">I accept the &nbsp;</mat-checkbox> <a href="javascript:void(0)" (click)="openDialog()">Term of Use</a>
+    </p>
+
+    <button mat-raised-button color="primary" style="width: calc(100% - 60px);margin: 0 30px 30px 30px;font-size: 18px;height: 50px" (click)="register()" [disabled]="!accept">Register Now</button>
+
+    </div>
+    </div>
+
+  </mat-card>
