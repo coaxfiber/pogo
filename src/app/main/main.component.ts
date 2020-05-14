@@ -3,8 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { GlobalService } from './../global.service';
 import {Http, Headers, RequestOptions} from '@angular/http';
 import { InputComponent } from './input/input.component';
-
+import * as jspdf from 'jspdf';
 import { Inject} from '@angular/core';
+import html2canvas from 'html2canvas';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -72,5 +73,14 @@ export class MainComponent implements OnInit {
     this.fullname = this.vars.LastName + ', ' + this.vars.FirstName + " " + this.vars.MiddleName +" " + this.vars.SuffixName
    
   }
-	
+downloadAsPDF() {
+   let data = document.getElementById('pdfTable');  
+        html2canvas(data).then(canvas => {
+          const contentDataURL = canvas.toDataURL('image/png')  
+          let pdf = new jspdf('p', 'cm', 'a4'); //Generates PDF in landscape mode
+          // let pdf = new jspdf('p', 'cm', 'a4'); Generates PDF in portrait mode
+          pdf.addImage(contentDataURL, 'PNG', 0, 0, 29.7, 21.0);  
+          pdf.save('Filename.pdf');   
+        }); 
+  }
 }
