@@ -64,20 +64,21 @@
 
 
     <p style="padding-bottom: 15px;margin-top: -10px;margin-left: 40px;padding-right: 30px" *ngIf="proglevelval=='01'">
-      <mat-checkbox  [(ngModel)]="condition" >I will be 4 years</mat-checkbox>  old by October 31, 2020.
+      <mat-checkbox  [(ngModel)]="condition" >The child must be 4 years old</mat-checkbox> by October 31, 2020.
     </p>
 
     <p style="padding-bottom: 15px;margin-top: -10px;margin-left: 40px;padding-right: 30px" *ngIf="proglevelval=='02'">
-      <mat-checkbox  [(ngModel)]="condition">I will be 5 years</mat-checkbox>  old by October 31, 2020.
+      <mat-checkbox  [(ngModel)]="condition">The child must be 5 years old</mat-checkbox> by October 31, 2020.
     </p>
 
     <p style="padding-bottom: 15px;margin-top: -10px;margin-left: 40px;padding-right: 30px" *ngIf="proglevelval=='04'">
-      <mat-checkbox  [(ngModel)]="condition">I have a </mat-checkbox> general weighted average of at least 80%.
+      <mat-checkbox  [(ngModel)]="condition">The child must have a </mat-checkbox> general weighted average of at least 80%.
     </p>
 
     <p style="padding-bottom: 15px;margin-top: -10px;margin-left: 40px;padding-right: 30px" *ngIf="proglevelval=='05'">
-      <mat-checkbox  [(ngModel)]="condition" >I have a </mat-checkbox> general weighted average of at least 80% with no failing grades in any of the grading peroids.
+      <mat-checkbox  [(ngModel)]="condition" >The child must have a </mat-checkbox> general weighted average of at least 80% with no failing grades in any of the grading peroids.
     </p>
+    <p style="padding-bottom: 15px;margin-top: -10px;margin-left: 48px;padding-right: 30px;font-size: 16px" *ngIf="(proglevelval=='01'||proglevelval=='02'||proglevelval=='03'||proglevelval=='04'||proglevelval=='05')&&condition">Please provide child information and click register.</p>
     <div *ngIf="proglevelval!=''&&condition">
     <div *ngIf="proglevelval!=''&&loading==false">
     <table style="width: 100%;margin-top: -15px">
@@ -225,7 +226,7 @@
       <mat-checkbox  [(ngModel)]="accept">I accept the &nbsp;</mat-checkbox> <a href="javascript:void(0)" (click)="openDialog()">Term of Use</a>
     </p>
 
-    <button mat-raised-button color="primary" style="width: calc(100% - 60px);margin: 0 30px 30px 30px;font-size: 18px;height: 50px" (click)="register()" [disabled]="!accept">Register Now</button>
+    <button mat-raised-button color="primary" style="width: calc(100% - 60px);margin: 0 30px 30px 30px;font-size: 18px;height: 50px" (click)="register()" [disabled]="!accept">Register</button>
 
     </div>
     </div>

@@ -1,5 +1,5 @@
-<div *ngIf="vars!=undefined" style="max-height: calc(100vh - 100px)">
-	<h2>Applicant information successfully submitted.</h2>
+<div id="scrollMe" #scrollMe style="max-height: calc(100vh - 180px);min-width: 685px;overflow-y: scroll">
+	<h2>Your registration is successful.</h2>
 	<p>Please Standby for the announcement of your schedule. Your application has been added to our database. Thank you!</p>
 <hr>
 <div id="pdfTable" #pdfTable>
@@ -54,12 +54,36 @@
 		<td>{{strandp2}}</td>
 	</tr>
 </table>
-</div>
 <div style="height: 10px"></div>
 <hr>
-<button mat-raised-button color="primary" style="width: calc(100% - 60px);margin: 10px 30px 15px 30px;font-size: 18px;height: 50px" (click)="downloadAsPDF()">Download and Close</button>
+<br>
+<b>Please take note of the following:</b>
+<ol type="1">
+<li>You will receive a call or text from the Guidance Office to inform you of your test schedule.</li>
+<li>Please show the CONFIRMATION TEXT to the guard-on-duty when you come for your scheduled entrance test. Only students with confirmation are allowed entry to the University campus.</li>
+<li>Please use a mask (No Mask, No Entry policy) and observe physical distancing when you are inside the campus.</li>
+<li>Only one (1) chaperone per pupil/student is allowed.</li>
+</ol>
+<b>Please bring the following during your scheduled examination:</b><br><br>
 
-*Note: You are not currently admitted blah blah blah
+For Junior and Senior High School:<br>
+<ol>
+<li>Clear photocopy of Report Card with a GPA of 80% or above</li>
+<li>Testing fee of P 100.00</li>
+<li>Two lead pencils</li>
+<li>Two pieces of bond paper</li>
+<li>One long white paper folder</li>
+</ol>
+For College:<br>
+<ol>
+<li>Properly accomplished USL-CET Application Form(FM-GCC-302) available at <a href="http://bit.ly/USLCET2020">http://bit.ly/USLCET2020</a> or visit the College Guidance Center.</li>
+<li>USL-CET Fee: One Hundred Pesos (PHP100) to be settled at the Accounting Office. Once the permit has been secured, the paid amount becomes non-refundable.</li>
+<li>One (1) 2x2 ID photo WITH NAME TAG; white background; eyes and face and/or hair not covered. Affix your signature at the back of the photo.</li>
+</ol> 
+
+</div>     
+
+            
                       
 
                       <!-- "StrandId": strandid,
@@ -73,3 +97,4 @@
                       "SHS_PriorityStrandID2": strandval1,
                       "TopOfMyClass": this.condition -->
 </div>
+<button mat-raised-button color="primary" style="width: calc(100% - 60px);margin: 20px 30px 5px 30px;font-size: 18px;height: 50px" (click)="downloadAsPDF()">Download and Close</button>

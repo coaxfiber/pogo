@@ -157,11 +157,11 @@ accept=false
       date = new Date(this.bdate).toLocaleString();
       if (this.proglevelval=='01') {
         if (this.getAge(this.bdate)!=4) {
-          x=x+"*Age does not met the critiria(4 years old by October 31, 2020).<br>"
+          x=x+"*Sorry, age requirement is not met.<br>You are not qualified to register<br>"
         }
       }if (this.proglevelval=='02') {
         if (this.getAge(this.bdate)!=5) {
-          x=x+"*Age does not met the critiria(5 years old by October 31, 2020).<br>"
+          x=x+"*Sorry, age requirement is not met.<br>You are not qualified to register<br>"
         }
       }
     }
@@ -203,9 +203,6 @@ accept=false
     }
 
   	if (x=='') {
-      if (this.proglevelval!='01'&&this.proglevelval!='02'&&this.proglevelval!='04'&&this.proglevelval!='05') {
-        this.condition=false
-      }
       var address=''
       var companyid=''
       //this.global.swalLoading('');
@@ -243,31 +240,31 @@ accept=false
 
 
     	var option=this.global.requestToken()
-   //  	this.http.post(this.global.api+'/OnlineRegistration/Applicant' ,{
-			//   "ProgramLevel": this.proglevelval,
-			//   "FirstName": this.fname,
-			//   "MiddleName": this.mname,
-			//   "LastName": this.lname,
-			//   "SuffixName": this.suffix,
-			//   "DateOfBirth": date,
-			//   "Gender": this.gender,
-			//   "ContactNumber": this.cnumber,
-			//   "ContactPerson": this.cperson,
-			//   "SchoolGraduatedFrom": this.gradfrom,
+    	this.http.post(this.global.api+'/OnlineRegistration/Applicant' ,{
+			  "ProgramLevel": this.proglevelval,
+			  "FirstName": this.fname,
+			  "MiddleName": this.mname,
+			  "LastName": this.lname,
+			  "SuffixName": this.suffix,
+			  "DateOfBirth": date,
+			  "Gender": this.gender,
+			  "ContactNumber": this.cnumber,
+			  "ContactPerson": this.cperson,
+			  "SchoolGraduatedFrom": this.gradfrom,
 
-   //      "StrandId": strandid,
-   //      "PreferredCourseId": this.courseval,
-   //      "AlternativeCourseId1": this.courseval1,
-   //      "AlternativeCourseId2": this.courseval2,
-   //      "YearGraduated": year,
-   //      "SchoolAddressNoStreet": address,
-   //      "SchoolAddressPSGC": companyid,
-   //      "SHS_PriorityStrandID1": strandval,
-   //      "SHS_PriorityStrandID2": strandval1,
-   //      "TopOfMyClass": this.condition
-			// },option)
-   //          .map(response => response.json())
-   //          .subscribe(res => {
+        "StrandId": strandid,
+        "PreferredCourseId": this.courseval,
+        "AlternativeCourseId1": this.courseval1,
+        "AlternativeCourseId2": this.courseval2,
+        "YearGraduated": year,
+        "SchoolAddressNoStreet": address,
+        "SchoolAddressPSGC": companyid,
+        "SHS_PriorityStrandID1": strandval,
+        "SHS_PriorityStrandID2": strandval1,
+        "TopOfMyClass": this.condition
+			},option)
+            .map(response => response.json())
+            .subscribe(res => {
                   this.openDialogmain({
                       "ProgramLevel": this.proglevelval,
                       "FirstName": this.fname,
@@ -291,21 +288,11 @@ accept=false
                       "SHS_PriorityStrandID2": strandval1,
                       "TopOfMyClass": this.condition
                     })
-         //    	this.fname = ''
-								 // this. mname = ''
-								 //  this.lname = ''
-								 //  this.suffix = ''
-								 //  this.gender = ''
-								 //  this. cnumber = ''
-								 //  this.cperson = ''
-								 //  this.gradfrom = ''
-								 //  this.proglevelval = ''
-								 //  this.accept=false
-         //          this.global.swalClose()
-         //                      },Error=>{
-         //                        this.global.swalAlertError();
-         //                        console.log(Error)
-         //                      });
+            	
+                              },Error=>{
+                                this.global.swalAlertError();
+                                console.log(Error)
+                              });
   	}else{
       console.log(this.condition)
   	 this.global.swalAlert("Field Required!", x,"warning")
@@ -330,6 +317,22 @@ accept=false
 
     dialogRef.afterClosed().subscribe(result => {
       if (result!=undefined) {
+        
+      if (this.proglevelval!='01'&&this.proglevelval!='02'&&this.proglevelval!='04'&&this.proglevelval!='05') {
+        this.condition=false
+      }
+        this.proglevelval = ''
+        this.fname = ''
+       this. mname = ''
+        this.lname = ''
+        this.suffix = ''
+        this.gender = ''
+        this. cnumber = ''
+        this.cperson = ''
+        this.gradfrom = ''
+        this.proglevelval = ''
+        this.accept=false
+        this.global.swalClose()
       }
     });
   }
