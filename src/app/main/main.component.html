@@ -1,6 +1,6 @@
-<div id="scrollMe" #scrollMe style="max-height: calc(100vh - 180px);min-width: 685px;overflow-y: scroll">
+<div id="scrollMe" #scrollMe style="max-height: calc(100vh - 180px);min-width: 685px;overflow-y: auto;padding-left: 10px;padding-right: 10px">
 	<h2>Your registration is successful.</h2>
-	<p>Please Standby for the announcement of your schedule. Your application has been added to our database. Thank you!</p>
+	<p>Please standby for the announcement of your schedule. Your application has been added to our database. Thank you!</p>
 <hr>
 <div id="pdfTable" #pdfTable>
 <h3 style="text-align: center">Applicant Information:</h3>
@@ -18,16 +18,23 @@
 		<td style="width: calc(50% - 300px)">{{vars.DateOfBirth | date: 'mediumDate'}} &nbsp; &nbsp; &nbsp; &nbsp; Gender:  {{vars.Gender}}</td>
 	</tr>
 	<tr>
+		<td>Gender:</td>
+		<td style="width: calc(50% - 300px)">{{vars.Gender}}</td>
+	</tr>
+	<tr>
 		<td>Contact Number:</td>
 		<td>{{vars.ContactNumber}}</td>
 	</tr>
-	<tr>
+	<tr *ngIf="vars.ProgramLevel=='01'||vars.ProgramLevel=='02'||vars.ProgramLevel=='03'">
 		<td>Contact Person:</td>
 		<td>{{vars.ContactPerson}}</td>
 	</tr>
 	<tr *ngIf="vars.ProgramLevel=='04'||vars.ProgramLevel=='05'||vars.ProgramLevel=='06'||vars.ProgramLevel=='07'">
 		<td>School Graduated From: </td>
 		<td>{{vars.SchoolGraduatedFrom}}  Year: {{vars.YearGraduated}}</td>
+	</tr><tr *ngIf="vars.ProgramLevel=='04'||vars.ProgramLevel=='05'||vars.ProgramLevel=='06'||vars.ProgramLevel=='07'">
+		<td>Year Graduated: </td>
+		<td>{{vars.YearGraduated}}</td>
 	</tr>
 	<tr *ngIf="vars.ProgramLevel=='06'">
 		<td>Current Strand: </td>
@@ -56,7 +63,7 @@
 </table>
 <div style="height: 10px"></div>
 <hr>
-<br>
+<p *ngIf="vars.ProgramLevel=='05'">*NOTE: If you are the TOP 1 or TOP 2 of your batch, please secure a certification signed by your Principal and submit it to the High School Guidance Office. This will exempt you from taking the Entrance Test.</p>
 <b>Please take note of the following:</b>
 <ol type="1">
 <li>You will receive a call or text from the Guidance Office to inform you of your test schedule.</li>
@@ -64,9 +71,9 @@
 <li>Please use a mask (No Mask, No Entry policy) and observe physical distancing when you are inside the campus.</li>
 <li>Only one (1) chaperone per pupil/student is allowed.</li>
 </ol>
-<b>Please bring the following during your scheduled examination:</b><br><br>
+<div  *ngIf="vars.ProgramLevel=='05'||vars.ProgramLevel=='04'||vars.ProgramLevel=='06'"><b>Please bring the following during your scheduled examination:</b><br></div>
 
-For Junior and Senior High School:<br>
+<div *ngIf="vars.ProgramLevel=='05'||vars.ProgramLevel=='04'">
 <ol>
 <li>Clear photocopy of Report Card with a GPA of 80% or above</li>
 <li>Testing fee of P 100.00</li>
@@ -74,13 +81,21 @@ For Junior and Senior High School:<br>
 <li>Two pieces of bond paper</li>
 <li>One long white paper folder</li>
 </ol>
-For College:<br>
+</div>
+<div *ngIf="vars.ProgramLevel=='06'">
 <ol>
+
 <li>Properly accomplished USL-CET Application Form(FM-GCC-302) available at <a href="http://bit.ly/USLCET2020">http://bit.ly/USLCET2020</a> or visit the College Guidance Center.</li>
+<li>Clear photocopy of Report Card (Form 138).</li>
 <li>USL-CET Fee: One Hundred Pesos (PHP100) to be settled at the Accounting Office. Once the permit has been secured, the paid amount becomes non-refundable.</li>
 <li>One (1) 2x2 ID photo WITH NAME TAG; white background; eyes and face and/or hair not covered. Affix your signature at the back of the photo.</li>
-</ol> 
 
+</ol> 
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+</div>
 </div>     
 
             

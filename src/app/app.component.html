@@ -72,13 +72,13 @@
     </p>
 
     <p style="padding-bottom: 15px;margin-top: -10px;margin-left: 40px;padding-right: 30px" *ngIf="proglevelval=='04'">
-      <mat-checkbox  [(ngModel)]="condition">The child must have a </mat-checkbox> general weighted average of at least 80%.
+      <mat-checkbox  [(ngModel)]="condition">You must have a </mat-checkbox> general weighted average of at least 80%.
     </p>
 
     <p style="padding-bottom: 15px;margin-top: -10px;margin-left: 40px;padding-right: 30px" *ngIf="proglevelval=='05'">
-      <mat-checkbox  [(ngModel)]="condition" >The child must have a </mat-checkbox> general weighted average of at least 80% with no failing grades in any of the grading peroids.
+      <mat-checkbox  [(ngModel)]="condition" >You must have a </mat-checkbox> general weighted average of at least 80% with no failing grades in any of the grading periods.
     </p>
-    <p style="padding-bottom: 15px;margin-top: -10px;margin-left: 48px;padding-right: 30px;font-size: 16px" *ngIf="(proglevelval=='01'||proglevelval=='02'||proglevelval=='03'||proglevelval=='04'||proglevelval=='05')&&condition">Please provide child information and click register.</p>
+    <p style="padding-bottom: 15px;margin-top: -10px;margin-left: 48px;padding-right: 30px;font-size: 16px" *ngIf="(proglevelval=='01'||proglevelval=='02'||proglevelval=='03')&&condition"><b>Please provide child information and click register.</b></p>
     <div *ngIf="proglevelval!=''&&condition">
     <div *ngIf="proglevelval!=''&&loading==false">
     <table style="width: 100%;margin-top: -15px">
@@ -117,17 +117,18 @@
             </mat-select>
           </mat-form-field>
           <mat-form-field appearance="outline"  style="width: calc(40% - 10px);margin-right: 10px" class="fullwidth">
-          <input readonly matInput [matDatepicker]="picker" placeholder="Birth Date" (click)="picker.open()"  [(ngModel)]="bdate" name="bdate" required>
+              <mat-label>Birth Date</mat-label>
+          <input readonly matInput [matDatepicker]="picker" placeholder="Birth Date" (click)="picker.open()"  [(ngModel)]="bdate" name="bdate">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
         <mat-form-field appearance="outline" style="width: 25%"  class="fullwidth">
               <mat-label>Contact Number</mat-label>
-              <input matInput autocomplete="off" [(ngModel)]="cnumber">
+              <input matInput autocomplete="off" [(ngModel)]="cnumber" placeholder="0917XXXXXXX" maxlength="11">
           </mat-form-field>
     </div>
 
-    <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px">
+    <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px"  *ngIf="proglevelval=='01'||proglevelval=='02'||proglevelval=='03'">
          
           
           <mat-form-field appearance="outline"  style="width: calc(30% - 10px);margin-right: 10px" class="fullwidth">
@@ -146,24 +147,56 @@
           </mat-form-field>
 
           <mat-form-field appearance="outline" style="width: calc(20% - 10px);" class="fullwidth"   *ngIf="proglevelval!='01'&&proglevelval!='02'&&proglevelval!='03'">
-            <mat-label>Year</mat-label>
+            <mat-label>Year Graduated</mat-label>
             <mat-select  [(ngModel)]="yeargrad">
               <mat-option *ngFor="let a of currdatearray" value="{{a}}">{{a}}</mat-option>
             </mat-select>
           </mat-form-field>
     </div>
 
+    <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px"  *ngIf="proglevelval=='04'||proglevelval=='05'||proglevelval=='06'||proglevelval=='07'">
+         
+          
+          <mat-form-field appearance="outline" style="width: 70%;margin-right: 10px"  *ngIf="proglevelval!='01'&&proglevelval!='02'&&proglevelval!='03'" class="fullwidth">
+            <mat-label>School Graduated From</mat-label>
+            <input type="text" placeholder="" [(ngModel)]="gradfrom" matInput [matAutocomplete]="auto" (keydown)='keyDownFunction()'>
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let option of schoolstemp" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
 
-    <p style="padding-bottom: 11px;margin-top: -10px;margin-left: 40px;padding-right: 30px" *ngIf="proglevelval=='05'||proglevelval=='04'">
-      <mat-checkbox  [(ngModel)]="top" >I am the top of my class.</mat-checkbox>
-    </p>
+          <mat-form-field appearance="outline" style="width: calc(30% - 10px);" class="fullwidth"   *ngIf="proglevelval!='01'&&proglevelval!='02'&&proglevelval!='03'">
+            <mat-label>Year Graduated</mat-label>
+            <mat-select  [(ngModel)]="yeargrad">
+              <mat-option *ngFor="let a of currdatearray" value="{{a}}">{{a}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+
+      <table style="padding-left: 30px;padding-right: 30px;margin-top: -10px;width: 100%">
+      <tr>
+        <td>
+        <mat-form-field style="width: calc(100% - 50px)" appearance="outline"  (click)="lookup()">
+          <mat-label>School Address</mat-label>
+          <input autofocus matInput [(ngModel)]="address" readonly="readonly">
+          
+        </mat-form-field>
+        <button mat-mini-fab color="primary"  (click)="lookup()" style="float: right;margin-top: 13px">
+          <mat-icon>search</mat-icon>
+        </button>
+        </td>
+      </tr>
+      </table>
+
 
     <div *ngIf="proglevelval=='05'">
       <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px">
             <mat-form-field appearance="outline" style="width: calc(100% - 10px);margin-right: 10px" class="fullwidth">
               <mat-label>Select Strand Priority 1</mat-label>
               <mat-select [(ngModel)]="strandval">
-                <mat-option *ngFor="let a of strand" value="{{a.strandId}}">{{a.strandTitle}}</mat-option>
+                <mat-option *ngFor="let a of strandfiltered" value="{{a.strandId}}">{{a.strandTitle}}</mat-option>
               </mat-select>
             </mat-form-field>
       </div>
@@ -172,10 +205,11 @@
             <mat-form-field appearance="outline" style="width: calc(100% - 10px);margin-right: 10px" class="fullwidth">
               <mat-label>Select Strand Priority 2</mat-label>
               <mat-select [(ngModel)]="strandval1">
-                <mat-option *ngFor="let a of strand" value="{{a.strandId}}">{{a.strandTitle}}</mat-option>
+                <mat-option *ngFor="let a of strandfiltered" value="{{a.strandId}}">{{a.strandTitle}}</mat-option>
               </mat-select>
             </mat-form-field>
       </div>
+      <p style="padding-left: 45px;padding-right: 30px;margin-top: -10px;margin-bottom: 25px"><a href="#">Learn more</a> about Academic Tracks.</p>
     </div>
 
     <div *ngIf="proglevelval=='06'">
@@ -197,7 +231,7 @@
     </div>
     <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px">
           <mat-form-field appearance="outline" style="width: calc(100% - 10px);margin-right: 10px" class="fullwidth">
-            <mat-label>Select Alternative Course</mat-label>
+            <mat-label>Select Alternative Course 1</mat-label>
             <mat-select [(ngModel)]="courseval1">
               <mat-option *ngFor="let a of courses" value="{{a.programId}}">{{a.course}}</mat-option>
             </mat-select>
@@ -205,7 +239,7 @@
     </div>
     <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px">
           <mat-form-field appearance="outline" style="width: calc(100% - 10px);margin-right: 10px" class="fullwidth">
-            <mat-label>Select Alternative Course</mat-label>
+            <mat-label>Select Alternative Course 2</mat-label>
             <mat-select [(ngModel)]="courseval2">
               <mat-option *ngFor="let a of courses" value="{{a.programId}}">{{a.course}}</mat-option>
             </mat-select>

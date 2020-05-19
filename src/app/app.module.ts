@@ -23,6 +23,7 @@ import { HttpModule } from '@angular/http';
   entryComponents: [
     InputComponent,
     MainComponent,
+    InfoComponent
    ],
   imports: [
     BrowserModule,

@@ -28,23 +28,27 @@ export class MainComponent implements OnInit {
   visible=true
   constructor(public dialog: MatDialog,public dialogRef: MatDialogRef<MainComponent>,@Inject(MAT_DIALOG_DATA) public data: any,private global: GlobalService,private http: Http) { }
   
+  time=0
 
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+  
   ngAfterViewChecked() {        
         this.scrollToBottom();        
     } 
     scrollToBottom(){ 
-
+      if (this.time<100) {
       setTimeout(() => {
-      try {
-            this.myScrollContainer.nativeElement.scrollTop = 0;
-        } catch(err) {console.log(err) }
-    });
+        try {
+          this.time++
+              this.myScrollContainer.nativeElement.scrollTop = 0;
+          } catch(err) {console.log(err) }
+          });
+        // code...
+      }
 
     }
 
   ngOnInit() {
-
     this.vars=this.data.data
     for (var i = 0; i < this.data.proglevel.length; ++i) {
       if (this.data.proglevel[i].programLevel == this.vars.ProgramLevel) {
@@ -92,7 +96,7 @@ downloadAsPDF() {
     html2canvas(data).then(canvas => {  
       // Few necessary setting options  
       let imgWidth = 150;   
-      let pageHeight = 800;    
+      let pageHeight = 500;    
       let imgHeight = canvas.height * imgWidth / canvas.width;  
       let heightLeft = imgHeight;  
 

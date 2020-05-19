@@ -11,6 +11,7 @@ import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { MainComponent } from './main/main.component';
+import { InfoComponent } from './info/info.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -49,6 +50,8 @@ export class AppComponent {
 
   currentdate
   currdatearray=[]
+
+  strandfiltered=[]
   constructor(private elRef:ElementRef,public dialog: MatDialog,private global: GlobalService,private http: Http){
     
     setTimeout(console.log.bind(console, '%cStop!', 'color: red;font-size:75px;font-weight:bold;-webkit-text-stroke: 1px black;'), 0);
@@ -82,6 +85,11 @@ for (var i = 0; i < 19; ++i) {
                                            .map(response => response.json())
                                            .subscribe(res => {
                                              this.strand=res.data
+                                             for (var i = 0; i < res.data.length; ++i) {
+                                               if (res.data[i].strandCode=='ABM'||res.data[i].strandCode=='HUMSS'||res.data[i].strandCode=='STEM-NH'||res.data[i].strandCode=='STEM-H') {
+                                                 this.strandfiltered.push(res.data[i])
+                                               }
+                                             }
                                              this.loading = false
                                         },Error=>{
                                              this.global.swalAlertError()
@@ -96,11 +104,26 @@ for (var i = 0; i < 19; ++i) {
                        this.global.swalAlertError()
                       });
   }
-  
+
+  permPSGC=''
+  address=''
+  street=''
+  lookup(lookup): void {
+        const dialogRef = this.dialog.open(InfoComponent, {
+          width: '500px', disableClose: true
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          if (result.result!='cancel') {
+              this.permPSGC = result.data;
+              this.address = result.result;
+          }
+        });
+      } 
   schoolstemp=[]
   keyDownFunction(){
       this.schoolstemp=[]
-    if (this.gradfrom!='') {
+    if (this.gradfrom!=''&&this.gradfrom.length>=4) {
       for (var i = 0; i < this.schools.length; ++i) {
         if (this.schools[i].companyName.toLowerCase().includes(this.gradfrom.toLowerCase())) {
           this.schoolstemp.push(this.schools[i].companyName)
@@ -151,22 +174,34 @@ accept=false
   	if (this.gender == '') {
   		x=x+"*Gender is required!<br>"
   	}
+    if (this.cnumber == '') {
+      x=x+"*Contact number is required!<br>";
+    }else{
+      if (this.cnumber.length!= 11) {
+      x=x+"*Contact number is invalid!<br>"
+      }
+    }
+    
   	if (this.bdate == '') {
   		x=x+"*Birth date is required!<br>"
   	}else{
       date = new Date(this.bdate).toLocaleString();
       if (this.proglevelval=='01') {
         if (this.getAge(this.bdate)!=4) {
-          x=x+"*Sorry, age requirement is not met.<br>You are not qualified to register<br>"
+          x=x+"*Sorry, age requirement is not met.<br>You are not qualified to register.<br>"
         }
       }if (this.proglevelval=='02') {
         if (this.getAge(this.bdate)!=5) {
-          x=x+"*Sorry, age requirement is not met.<br>You are not qualified to register<br>"
+          x=x+"*Sorry, age requirement is not met.<br>You are not qualified to register.<br>"
         }
       }
     }
 
-    
+    if (this.proglevelval=='04'||this.proglevelval=='05'||this.proglevelval=='06'||this.proglevelval=='07') {
+      if (this.address == '') {
+        x=x+"*School Address is required!<br>"
+      }
+    }
     if (this.proglevelval=='05') {
       if (this.strandval == '') {
         x=x+"*Strand Priority 1 is required!<br>"
@@ -195,7 +230,7 @@ accept=false
      
     }else{
        if (this.gradfrom == '') {
-        x=x+"*Graduated from is required!<br>"
+        x=x+"*School graduated from field is required!<br>"
       }
        if (this.yeargrad == '') {
         x=x+"*Year Graduated is required!<br>"
@@ -282,8 +317,8 @@ accept=false
                       "AlternativeCourseId1": this.courseval1,
                       "AlternativeCourseId2": this.courseval2,
                       "YearGraduated": year,
-                      "SchoolAddressNoStreet": address,
-                      "SchoolAddressPSGC": companyid,
+                      "SchoolAddressNoStreet": this.address,
+                      "SchoolAddressPSGC": this.permPSGC,
                       "SHS_PriorityStrandID1": strandval,
                       "SHS_PriorityStrandID2": strandval1,
                       "TopOfMyClass": this.condition
@@ -295,7 +330,7 @@ accept=false
                               });
   	}else{
       console.log(this.condition)
-  	 this.global.swalAlert("Field Required!", x,"warning")
+  	 this.global.swalAlert("Error Found:", x,"warning")
     }
   }
 
