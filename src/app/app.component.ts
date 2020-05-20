@@ -356,7 +356,7 @@ accept=false
 
   openDialogmain(data): void {
     const dialogRef = this.dialog.open(MainComponent, {
-      width: '750px',data:{data: data,proglevel:this.proglevel,strand:this.strand,courses:this.courses,gradcourses:this.gradcourses}, disableClose: true
+      width: '750px',data:{data: data,proglevel:this.proglevel,strand:this.strand,strand2:this.strandfiltered,courses:this.courses,gradcourses:this.gradcourses}, disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {

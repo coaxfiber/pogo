@@ -50,6 +50,8 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
     this.vars=this.data.data
+    console.log(this.vars.SHS_PriorityStrandID1)
+    console.log(this.vars.SHS_PriorityStrandID1)
     for (var i = 0; i < this.data.proglevel.length; ++i) {
       if (this.data.proglevel[i].programLevel == this.vars.ProgramLevel) {
         this.proglevelval = this.data.proglevel[i].progLevelDesc
@@ -60,14 +62,14 @@ export class MainComponent implements OnInit {
         this.currentstrand = this.data.strand[i].strandTitle
       }
     }
-    for (var i = 0; i < this.data.strand.length; ++i) {
-      if (this.data.strand[i].strandId == this.vars.SHS_PriorityStrandID1) {
-        this.strandp1 = this.data.strand[i].strandTitle
+    for (var i = 0; i < this.data.strand2.length; ++i) {
+      if (this.data.strand2[i].strandId == this.vars.SHS_PriorityStrandID1) {
+        this.strandp1 = this.data.strand2[i].strandTitle
       }
     }
-    for (var i = 0; i < this.data.strand.length; ++i) {
-      if (this.data.strand[i].strandId == this.vars.SHS_PriorityStrandID2) {
-        this.strandp2 = this.data.strand[i].strandTitle
+    for (var i = 0; i < this.data.strand2.length; ++i) {
+      if (this.data.strand2[i].strandId == this.vars.SHS_PriorityStrandID2) {
+        this.strandp2 = this.data.strand2[i].strandTitle
       }
     }
 
