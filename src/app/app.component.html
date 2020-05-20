@@ -175,7 +175,7 @@
           </mat-form-field>
     </div>
 
-      <table style="padding-left: 30px;padding-right: 30px;margin-top: -10px;width: 100%">
+      <table style="padding-left: 30px;padding-right: 30px;margin-top: -10px;width: 100%" *ngIf="proglevelval=='04'||proglevelval=='05'||proglevelval=='06'||proglevelval=='07'">
       <tr>
         <td>
         <mat-form-field style="width: calc(100% - 50px)" appearance="outline"  (click)="lookup()">
@@ -249,7 +249,7 @@
     <div *ngIf="proglevelval=='07'">
     <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px">
           <mat-form-field appearance="outline" style="width: calc(100% - 10px);margin-right: 10px" class="fullwidth">
-            <mat-label>Select Course</mat-label>
+            <mat-label>Select Program</mat-label>
             <mat-select [(ngModel)]="courseval">
               <mat-option *ngFor="let a of gradcourses" value="{{a.programId}}">{{a.course}}</mat-option>
             </mat-select>

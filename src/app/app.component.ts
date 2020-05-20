@@ -72,10 +72,11 @@ for (var i = 0; i < 19; ++i) {
                                if (res.data[i].programLevel=="50") {
                                  this.courses.push(res.data[i])
                                }
-                               if (res.data[i].programLevel=="80") {
+                               if (res.data[i].programLevel=="80"||res.data[i].programLevel=="90") {
                                  this.gradcourses.push(res.data[i])
                                }
                              }
+
                              this.http.get(this.global.api+'PublicAPI/Schools')
                                    .map(response => response.json())
                                    .subscribe(res => {
@@ -90,6 +91,12 @@ for (var i = 0; i < 19; ++i) {
                                                  this.strandfiltered.push(res.data[i])
                                                }
                                              }
+                                             this.strandfiltered=[]
+                                             this.strandfiltered.push({strandId:'900009',strandTitle:'Accountancy, Business and Management Strand'})
+                                             this.strandfiltered.push({strandId:'900011',strandTitle:'Humanities and Social Sciences Strand'})
+                                             this.strandfiltered.push({strandId:'900013',strandTitle:'Science, Technology, Engineering and Mathematics Health Strand'})
+                                             this.strandfiltered.push({strandId:'900010',strandTitle:'Science, Technology, Engineering and Mathematics-Non-Health Strand'})
+                                             console.log(res)
                                              this.loading = false
                                         },Error=>{
                                              this.global.swalAlertError()
@@ -187,11 +194,11 @@ accept=false
   	}else{
       date = new Date(this.bdate).toLocaleString();
       if (this.proglevelval=='01') {
-        if (this.getAge(this.bdate)!=4) {
+        if (this.getAge(this.bdate)<4) {
           x=x+"*Sorry, age requirement is not met.<br>You are not qualified to register.<br>"
         }
       }if (this.proglevelval=='02') {
-        if (this.getAge(this.bdate)!=5) {
+        if (this.getAge(this.bdate)<5) {
           x=x+"*Sorry, age requirement is not met.<br>You are not qualified to register.<br>"
         }
       }
@@ -207,7 +214,7 @@ accept=false
         x=x+"*Strand Priority 1 is required!<br>"
       }
       if (this.strandval1 == '') {
-        x=x+"*Strand Priority 1 is required!<br>"
+        x=x+"*Strand Priority 2 is required!<br>"
       }
     }
     if (this.proglevelval=='06') {
@@ -238,6 +245,7 @@ accept=false
     }
 
   	if (x=='') {
+      this.accept = false
       var address=''
       var companyid=''
       //this.global.swalLoading('');
@@ -286,16 +294,15 @@ accept=false
 			  "ContactNumber": this.cnumber,
 			  "ContactPerson": this.cperson,
 			  "SchoolGraduatedFrom": this.gradfrom,
-
         "StrandId": strandid,
         "PreferredCourseId": this.courseval,
         "AlternativeCourseId1": this.courseval1,
         "AlternativeCourseId2": this.courseval2,
         "YearGraduated": year,
-        "SchoolAddressNoStreet": address,
-        "SchoolAddressPSGC": companyid,
-        "SHS_PriorityStrandID1": strandval,
-        "SHS_PriorityStrandID2": strandval1,
+        "SchoolAddressNoStreet": this.address,
+        "SchoolAddressPSGC": this.permPSGC,
+        "SHS_PriorityStrandID1": this.strandval,
+        "SHS_PriorityStrandID2": this.strandval1,
         "TopOfMyClass": this.condition
 			},option)
             .map(response => response.json())
@@ -319,14 +326,16 @@ accept=false
                       "YearGraduated": year,
                       "SchoolAddressNoStreet": this.address,
                       "SchoolAddressPSGC": this.permPSGC,
-                      "SHS_PriorityStrandID1": strandval,
-                      "SHS_PriorityStrandID2": strandval1,
+                      "SHS_PriorityStrandID1": this.strandval,
+                      "SHS_PriorityStrandID2": this.strandval1,
                       "TopOfMyClass": this.condition
                     })
             	
+      this.accept = true
                               },Error=>{
                                 this.global.swalAlertError();
                                 console.log(Error)
+      this.accept = true
                               });
   	}else{
       console.log(this.condition)

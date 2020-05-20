@@ -15,7 +15,7 @@
 	</tr>
 	<tr>
 		<td>Date of birth:</td>
-		<td style="width: calc(50% - 300px)">{{vars.DateOfBirth | date: 'mediumDate'}} &nbsp; &nbsp; &nbsp; &nbsp; Gender:  {{vars.Gender}}</td>
+		<td style="width: calc(50% - 300px)">{{vars.DateOfBirth | date: 'mediumDate'}}</td>
 	</tr>
 	<tr>
 		<td>Gender:</td>
@@ -31,7 +31,7 @@
 	</tr>
 	<tr *ngIf="vars.ProgramLevel=='04'||vars.ProgramLevel=='05'||vars.ProgramLevel=='06'||vars.ProgramLevel=='07'">
 		<td>School Graduated From: </td>
-		<td>{{vars.SchoolGraduatedFrom}}  Year: {{vars.YearGraduated}}</td>
+		<td>{{vars.SchoolGraduatedFrom}}</td>
 	</tr><tr *ngIf="vars.ProgramLevel=='04'||vars.ProgramLevel=='05'||vars.ProgramLevel=='06'||vars.ProgramLevel=='07'">
 		<td>Year Graduated: </td>
 		<td>{{vars.YearGraduated}}</td>
@@ -94,7 +94,7 @@
 &nbsp;<br>
 &nbsp;<br>
 &nbsp;<br>
-&nbsp;<br>
+&nbsp;<br> 
 </div>
 </div>     
 
