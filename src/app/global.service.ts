@@ -6,7 +6,7 @@ const swal = Swal;
 @Injectable()
 export class GlobalService {
 
-  api = "http://testserver.usl.edu.ph/api/";
+  api = "http://api.usl.edu.ph/api/";
   token
   header = new Headers();
   option:any;
@@ -57,6 +57,6 @@ export class GlobalService {
 
   swalAlertError()
   {
-   swal.fire('Oops...', 'Connection Error!', 'error');
+   swal.fire('Connection Error!', 'USL Database Server may be down. Please try again later.', 'error');
   }
 }

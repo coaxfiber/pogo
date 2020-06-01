@@ -285,10 +285,10 @@ accept=false
     	var option=this.global.requestToken()
     	this.http.post(this.global.api+'/OnlineRegistration/Applicant' ,{
 			  "ProgramLevel": this.proglevelval,
-			  "FirstName": this.fname,
-			  "MiddleName": this.mname,
-			  "LastName": this.lname,
-			  "SuffixName": this.suffix,
+			  "FirstName": this.fname.toUpperCase(),
+			  "MiddleName": this.mname.toUpperCase(),
+			  "LastName": this.lname.toUpperCase(),
+			  "SuffixName": this.suffix.toUpperCase(),
 			  "DateOfBirth": date,
 			  "Gender": this.gender,
 			  "ContactNumber": this.cnumber,
@@ -309,10 +309,10 @@ accept=false
             .subscribe(res => {
                   this.openDialogmain({
                       "ProgramLevel": this.proglevelval,
-                      "FirstName": this.fname,
-                      "MiddleName": this.mname,
-                      "LastName": this.lname,
-                      "SuffixName": this.suffix,
+                      "FirstName": this.fname.toUpperCase(),
+                      "MiddleName": this.mname.toUpperCase(),
+                      "LastName": this.lname.toUpperCase(),
+                      "SuffixName": this.suffix.toUpperCase(),
                       "DateOfBirth": date,
                       "Gender": this.gender,
                       "ContactNumber": this.cnumber,
