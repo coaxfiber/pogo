@@ -12,6 +12,7 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { MainComponent } from './main/main.component';
 import { InfoComponent } from './info/info.component';
+import { LoginComponent } from './login/login.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -52,6 +53,7 @@ export class AppComponent {
   currdatearray=[]
 
   strandfiltered=[]
+  login=false
   constructor(private elRef:ElementRef,public dialog: MatDialog,private global: GlobalService,private http: Http){
     
     setTimeout(console.log.bind(console, '%cStop!', 'color: red;font-size:75px;font-weight:bold;-webkit-text-stroke: 1px black;'), 0);
@@ -61,6 +63,7 @@ this.currentdate=new Date().getFullYear()
 for (var i = 0; i < 19; ++i) {
   this.currdatearray[i] = this.currentdate--
 }
+this.googlelogin()
     this.http.get(this.global.api+'OnlineRegistration/ProgramLevel')
                      .map(response => response.json())
                      .subscribe(res => {
@@ -124,6 +127,17 @@ for (var i = 0; i < 19; ++i) {
           if (result.result!='cancel') {
               this.permPSGC = result.data;
               this.address = result.result;
+          }
+        });
+      } 
+  googlelogin(): void {
+        const dialogRef = this.dialog.open(LoginComponent, {
+          width: '99%', disableClose: true
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          if (result.result!='cancel') {
+            this.login = true
           }
         });
       } 

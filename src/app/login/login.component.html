@@ -1,25 +1,36 @@
-<mat-card class="example-card">
-  <mat-card-header>
-    <mat-card-title><b>LOGIN FORM</b></mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-      
-      <div>
-          <ng-template matStepLabel>Fill out the form</ng-template>
-          <div >
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Username" required >
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-          <input matInput placeholder="Password" type="password" required >
-        </mat-form-field>
-        </div>
-       
-        <br>
-          <div>
-            <a  (click)="calltologin()" mat-button style="color: white;background-color: #3f51b5; float: right;" ><i class="material-icons">lock_open</i> Login</a>
-          </div><br><br><br>
-        </div>
+<div style="max-height: calc(100vh - 200px);overflow-y: auto;">
+<style type="text/css">
+  .part1{
+    width: 50%;
+    float:left;
+  }
 
-  </mat-card-content>
-</mat-card>
+  @media only screen and (max-width: 791px) {
+  .part1 {
+    width: 100%;
+    } 
+  }
+</style>
+
+<div class="part1" style="text-align: center;">
+  <div style="margin-top: 100px;margin-bottom: 100px;padding-right: 20px">
+    <h2>Online Registration for<br>New Students</h2>
+    <p>
+      <b>Register using your account on Google.</b>
+    </p>
+    <button mat-raised-button color="primary" style="color: white;width: 90%" (click)="closethis()">
+      <span class="material-icons">
+        account_box
+      </span>
+      Google Login
+    </button>
+    <p style="width: 85%;margin-right: auto;margin-left: auto;text-align: left;">
+      <mat-checkbox (click)="checkiagree()"></mat-checkbox> I have read the above policy. I understand the contents, and I agree to comply with the said Policy.
+    </p>
+  </div>
+</div>
+<div class="part1">
+    <img src="https://www.socialmediaexaminer.com/wp-content/uploads/2015/10/jp-facebook-ads-emails-p.png" style="width: 100%">
+</div>
+
+</div>
