@@ -10,6 +10,7 @@ import { MainComponent } from './main/main.component';
 import { InfoComponent } from './info/info.component';
 import { InputComponent } from './main/input/input.component';
 import { HttpModule } from '@angular/http';
+import { TermsComponent } from './terms/terms.component';
 
 
 @NgModule({
@@ -19,11 +20,13 @@ import { HttpModule } from '@angular/http';
     MainComponent,
     InfoComponent,
     InputComponent,
+    TermsComponent,
   ],
   entryComponents: [
     InputComponent,
     MainComponent,
-    InfoComponent
+    InfoComponent,
+    TermsComponent
    ],
   imports: [
     BrowserModule,
