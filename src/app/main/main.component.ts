@@ -50,8 +50,6 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
     this.vars=this.data.data
-    console.log(this.vars.SHS_PriorityStrandID1)
-    console.log(this.vars.SHS_PriorityStrandID1)
     for (var i = 0; i < this.data.proglevel.length; ++i) {
       if (this.data.proglevel[i].programLevel == this.vars.ProgramLevel) {
         this.proglevelval = this.data.proglevel[i].progLevelDesc

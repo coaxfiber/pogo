@@ -10,7 +10,7 @@ export class GlobalService {
   token
   header = new Headers();
   option:any;
-
+    email=''
   constructor() {
      
   }

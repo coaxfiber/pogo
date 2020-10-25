@@ -13,6 +13,12 @@ import { HttpModule } from '@angular/http';
 import { TermsComponent } from './terms/terms.component';
 
 
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider,
+  AmazonLoginProvider,
+} from 'angularx-social-login';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,16 +32,32 @@ import { TermsComponent } from './terms/terms.component';
     InputComponent,
     MainComponent,
     InfoComponent,
-    TermsComponent
+    TermsComponent,
    ],
   imports: [
     BrowserModule,
     MaterialModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpModule
+    HttpModule,
+    
+    SocialLoginModule
   ],
-  providers: [GlobalService],
+  providers: [GlobalService,
+  {
+    provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '100400588236-rhpnguqginvpo91n12q1e201qe62ce1d.apps.googleusercontent.com'
+            ),
+          }
+        ],
+      } as SocialAuthServiceConfig,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

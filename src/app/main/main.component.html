@@ -25,9 +25,17 @@
 		<td>Contact Number:</td>
 		<td>{{vars.ContactNumber}}</td>
 	</tr>
+	<tr>
+		<td>Email Address:</td>
+		<td>{{global.email}}</td>
+	</tr>
 	<tr *ngIf="vars.ProgramLevel=='01'||vars.ProgramLevel=='02'||vars.ProgramLevel=='03'">
 		<td>Contact Person:</td>
 		<td>{{vars.ContactPerson}}</td>
+	</tr>
+	<tr>
+		<td>Date of Payment:</td>
+		<td>{{vars.pdate | date: 'mediumDate'}}</td>
 	</tr>
 	<tr *ngIf="vars.ProgramLevel=='04'||vars.ProgramLevel=='05'||vars.ProgramLevel=='06'||vars.ProgramLevel=='07'">
 		<td>School Graduated From: </td>

@@ -19,9 +19,10 @@ import { LoginComponent } from './login/login.component';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'aurasystem';
+  title = 'online reg';
   proglevel=[]
   bdate = ''
+  pdate = ''
 
   fname = ''
   mname = ''
@@ -54,6 +55,7 @@ export class AppComponent {
 
   strandfiltered=[]
   login=false
+  type=''
   constructor(private elRef:ElementRef,public dialog: MatDialog,private global: GlobalService,private http: Http){
     
     setTimeout(console.log.bind(console, '%cStop!', 'color: red;font-size:75px;font-weight:bold;-webkit-text-stroke: 1px black;'), 0);
@@ -132,12 +134,18 @@ this.googlelogin()
       } 
   googlelogin(): void {
         const dialogRef = this.dialog.open(LoginComponent, {
-          width: '99%', disableClose: true
+          width: '950px', disableClose: true
         });
 
         dialogRef.afterClosed().subscribe(result => {
           if (result.result!='cancel') {
             this.login = true
+            this.http.get(this.global.api+'OnlineRegistration/Applicant/2020211?emailAdd='+this.global.email)
+                     .map(response => response.json())
+                     .subscribe(res => {
+                       this.type = 'stat'
+                       console.log(res)
+                     });
           }
         });
       } 
@@ -185,6 +193,8 @@ this.googlelogin()
 accept=false
   register(){
     var date
+    var pdate
+    pdate = new Date(this.pdate).toLocaleString();
   	var x=''
   	if (this.fname == '') {
   		x=x+"*First name is required!<br>"
@@ -203,9 +213,16 @@ accept=false
       }
     }
     
-  	if (this.bdate == '') {
-  		x=x+"*Birth date is required!<br>"
-  	}else{
+    if (this.pdate == '') {
+      x=x+"*Date of Payment is required!<br>"
+    }
+    if (this.img == '') {
+      x=x+"*Proof Payment is required!<br>"
+    }
+    
+    if (this.bdate == '') {
+      x=x+"*Birth date is required!<br>"
+    }else{
       date = new Date(this.bdate).toLocaleString();
       if (this.proglevelval=='01') {
         if (this.getAge(this.bdate)<4) {
@@ -317,7 +334,13 @@ accept=false
         "SchoolAddressPSGC": this.permPSGC,
         "SHS_PriorityStrandID1": this.strandval,
         "SHS_PriorityStrandID2": this.strandval1,
-        "TopOfMyClass": this.condition
+        "TopOfMyClass": this.condition,
+
+        "Remark": "",
+        "SchoolYear": "202021",
+        "ProofOfPayment": this.img,
+        "EmailAddress": this.global.email,
+        "DatePaid": this.pdate
 			},option)
             .map(response => response.json())
             .subscribe(res => {
@@ -328,6 +351,7 @@ accept=false
                       "LastName": this.lname.toUpperCase(),
                       "SuffixName": this.suffix.toUpperCase(),
                       "DateOfBirth": date,
+                      "pdate": pdate,
                       "Gender": this.gender,
                       "ContactNumber": this.cnumber,
                       "ContactPerson": this.cperson,
@@ -366,6 +390,29 @@ accept=false
       if (result!=undefined) {
       }
     });
+  }
+
+   filetype=''
+  attachment=''
+  img=''
+  onFileChange(event) {
+    let reader = new FileReader();
+    if(event.target.files && event.target.files.length > 0) {
+      let file = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        console.log(file.type)
+        if (file.type.includes('jpg')||file.type.includes('png')||file.type.includes('JPG')||file.type.includes('PNG')||file.type.includes('jpeg')) {
+
+          this.filetype = file.type
+          this.attachment = "data:image/png;base64,"+reader.result.toString().split(',')[1]
+          this.img = reader.result.toString().split(',')[1]
+        }else{
+          alert("Invalid Image Type");
+        }
+      };
+    }
+   
   }
 
   openDialogmain(data): void {
