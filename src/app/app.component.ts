@@ -13,10 +13,14 @@ import {map, startWith} from 'rxjs/operators';
 import { MainComponent } from './main/main.component';
 import { InfoComponent } from './info/info.component';
 import { LoginComponent } from './login/login.component';
+import { UpdateRegComponent } from './update-reg/update-reg.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import { SocialAuthService } from "angularx-social-login";
+import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'online reg';
@@ -54,9 +58,13 @@ export class AppComponent {
   currdatearray=[]
 
   strandfiltered=[]
-  login=false
+  login=undefined
   type=''
-  constructor(private elRef:ElementRef,public dialog: MatDialog,private global: GlobalService,private http: Http){
+
+  cet=true
+  result=true
+
+  constructor(private authService: SocialAuthService,private _snackBar: MatSnackBar,private elRef:ElementRef,public dialog: MatDialog,private global: GlobalService,private http: Http){
     
     setTimeout(console.log.bind(console, '%cStop!', 'color: red;font-size:75px;font-weight:bold;-webkit-text-stroke: 1px black;'), 0);
     setTimeout(console.log.bind(console, '%cThis is a browser feature intended for developers.', 'color: black;font-size:20px;'), 0);
@@ -65,11 +73,18 @@ this.currentdate=new Date().getFullYear()
 for (var i = 0; i < 19; ++i) {
   this.currdatearray[i] = this.currentdate--
 }
+
+
 this.googlelogin()
     this.http.get(this.global.api+'OnlineRegistration/ProgramLevel')
                      .map(response => response.json())
                      .subscribe(res => {
-                       this.proglevel=res.data
+                       this.proglevel=[]
+                       for (var i = 0; i < res.data.length; ++i) {
+                         if (res.data[i].programLevel=="06") {
+                           this.proglevel.push(res.data[i])
+                         }
+                       }
                        this.http.get(this.global.api+'OnlineRegistration/CoursesWithStrand')
                            .map(response => response.json())
                            .subscribe(res => {
@@ -81,7 +96,6 @@ this.googlelogin()
                                  this.gradcourses.push(res.data[i])
                                }
                              }
-
                              this.http.get(this.global.api+'PublicAPI/Schools')
                                    .map(response => response.json())
                                    .subscribe(res => {
@@ -91,6 +105,7 @@ this.googlelogin()
                                            .map(response => response.json())
                                            .subscribe(res => {
                                              this.strand=res.data
+
                                              for (var i = 0; i < res.data.length; ++i) {
                                                if (res.data[i].strandCode=='ABM'||res.data[i].strandCode=='HUMSS'||res.data[i].strandCode=='STEM-NH'||res.data[i].strandCode=='STEM-H') {
                                                  this.strandfiltered.push(res.data[i])
@@ -101,7 +116,6 @@ this.googlelogin()
                                              this.strandfiltered.push({strandId:'900011',strandTitle:'Humanities and Social Sciences Strand'})
                                              this.strandfiltered.push({strandId:'900013',strandTitle:'Science, Technology, Engineering and Mathematics Health Strand'})
                                              this.strandfiltered.push({strandId:'900010',strandTitle:'Science, Technology, Engineering and Mathematics-Non-Health Strand'})
-                                             console.log(res)
                                              this.loading = false
                                         },Error=>{
                                              this.global.swalAlertError()
@@ -132,23 +146,105 @@ this.googlelogin()
           }
         });
       } 
+
+  onedata
+  remarks=''
+  applicantNo=''
   googlelogin(): void {
         const dialogRef = this.dialog.open(LoginComponent, {
-          width: '950px', disableClose: true
+          width: '500px', disableClose: true
         });
 
         dialogRef.afterClosed().subscribe(result => {
           if (result.result!='cancel') {
-            this.login = true
-            this.http.get(this.global.api+'OnlineRegistration/Applicant/2020211?emailAdd='+this.global.email)
-                     .map(response => response.json())
-                     .subscribe(res => {
-                       this.type = 'stat'
-                       console.log(res)
-                     });
+             this.runupdate()
           }
         });
       } 
+signOuttemp=0 
+signOut(): void {
+    if (this.signOuttemp==0) {
+      this.signOuttemp=1
+      this.authService.signOut();
+      location.reload();
+    }else
+      location.reload();
+
+      window.location.replace('https://www.google.com/accounts/Logout')
+  }
+openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      verticalPosition: 'top',
+      horizontalPosition: 'center'
+    });
+  }
+
+
+vars
+runupdate(){
+      this.login=false
+            this.http.get(this.global.api+'OnlineRegistration/Applicant/'+this.global.sy+'?emailAdd='+this.global.email)
+                     .map(response => response.json())
+                     .subscribe(res => {
+                       this.login = true
+                       this.type = 'reg'
+                       if (res.data!=null||res.data!=undefined) {
+                         if (res.data.length==1) {
+                           this.type = 'stat'
+                           this.onedata = res.data[0]
+                           this.applicantNo = this.onedata.applicantNo
+                          this.proglevelval=this.onedata.programLevel
+                          this.fname=this.onedata.firstName
+                          this.mname=this.onedata.middleName
+                          this.lname=this.onedata.lastName
+                          this.suffix=this.onedata.suffixName
+                          this.bdate=this.onedata.dateOfBirth
+                          this.gender=this.onedata.gender
+                          this.cnumber=this.onedata.contactNumber
+                          this.cperson=this.onedata.contactPerson
+                          this.gradfrom=this.onedata.schoolGraduatedFrom
+                          this.collegestrandval=this.onedata.strandId
+                          this.courseval=this.onedata.preferredCourseID
+                          this.courseval1=this.onedata.alternativeCourseID1
+                          this.courseval2=this.onedata.alternativeCourseID2
+                          this.yeargrad=this.onedata.yearGraduated
+                          this.address=this.onedata.schoolAddressNoStreet
+                          this.permPSGC=this.onedata.schoolAddressPSGC
+                          this.strandval=this.onedata.shS_PriorityStrandID1
+                          this.strandval1=this.onedata.shS_PriorityStrandID2
+                          this.condition=this.onedata.topOfMyClass
+                          this.img=this.onedata.proofOfPayment
+                          this.pdate=this.onedata.datePaid
+                          this.remarks=this.onedata.remarks
+
+                          this.vars={
+                            "ProgramLevel": this.proglevelval,
+                            "FirstName": this.fname.toUpperCase(),
+                            "MiddleName": this.mname.toUpperCase(),
+                            "LastName": this.lname.toUpperCase(),
+                            "SuffixName": this.suffix.toUpperCase(),
+                            "DateOfBirth": this.bdate,
+                            "pdate": this.pdate,
+                            "Gender": this.gender,
+                            "ContactNumber": this.cnumber,
+                            "ContactPerson": this.cperson,
+                            "SchoolGraduatedFrom": this.gradfrom,
+                            "StrandId": this.collegestrandval,
+                            "PreferredCourseId": this.courseval,
+                            "AlternativeCourseId1": this.courseval1,
+                            "AlternativeCourseId2": this.courseval2,
+                            "YearGraduated": this.yeargrad,
+                            "SchoolAddressNoStreet": this.address,
+                            "SchoolAddressPSGC": this.permPSGC,
+                            "SHS_PriorityStrandID1": this.strandval,
+                            "SHS_PriorityStrandID2": this.strandval1,
+                            "TopOfMyClass": this.condition
+                          }
+                         }
+                       }
+                     });
+}
+
   schoolstemp=[]
   keyDownFunction(){
       this.schoolstemp=[]
@@ -312,39 +408,37 @@ accept=false
       }else
         strandval1 = parseInt(this.strandval1)
 
-
     	var option=this.global.requestToken()
     	this.http.post(this.global.api+'/OnlineRegistration/Applicant' ,{
-			  "ProgramLevel": this.proglevelval,
-			  "FirstName": this.fname.toUpperCase(),
-			  "MiddleName": this.mname.toUpperCase(),
-			  "LastName": this.lname.toUpperCase(),
-			  "SuffixName": this.suffix.toUpperCase(),
-			  "DateOfBirth": date,
-			  "Gender": this.gender,
-			  "ContactNumber": this.cnumber,
-			  "ContactPerson": this.cperson,
-			  "SchoolGraduatedFrom": this.gradfrom,
+        "ProgramLevel": this.proglevelval,
+        "FirstName": this.fname.toUpperCase(),
+        "MiddleName": this.mname.toUpperCase(),
+        "LastName": this.lname.toUpperCase(),
+        "SuffixName": this.suffix.toUpperCase(),
+        "DateOfBirth": date,
+        "Gender": this.gender,
+        "ContactNumber": this.cnumber,
+        "ContactPerson": this.cperson,
+        "SchoolGraduatedFrom": this.gradfrom,
         "StrandId": strandid,
         "PreferredCourseId": this.courseval,
         "AlternativeCourseId1": this.courseval1,
         "AlternativeCourseId2": this.courseval2,
         "YearGraduated": year,
         "SchoolAddressNoStreet": this.address,
-        "SchoolAddressPSGC": this.permPSGC,
+        "SchoolAddressPSGC":  this.permPSGC,
         "SHS_PriorityStrandID1": this.strandval,
         "SHS_PriorityStrandID2": this.strandval1,
         "TopOfMyClass": this.condition,
-
         "Remark": "",
-        "SchoolYear": "202021",
+        "SchoolYear": this.global.sy,
         "ProofOfPayment": this.img,
         "EmailAddress": this.global.email,
         "DatePaid": this.pdate
 			},option)
             .map(response => response.json())
             .subscribe(res => {
-                  this.openDialogmain({
+              this.vars = {
                       "ProgramLevel": this.proglevelval,
                       "FirstName": this.fname.toUpperCase(),
                       "MiddleName": this.mname.toUpperCase(),
@@ -367,7 +461,8 @@ accept=false
                       "SHS_PriorityStrandID1": this.strandval,
                       "SHS_PriorityStrandID2": this.strandval1,
                       "TopOfMyClass": this.condition
-                    })
+                    }
+                  this.openDialogmain(this.vars)
             	
       this.accept = true
                               },Error=>{
@@ -376,7 +471,6 @@ accept=false
       this.accept = true
                               });
   	}else{
-      console.log(this.condition)
   	 this.global.swalAlert("Error Found:", x,"warning")
     }
   }
@@ -401,9 +495,7 @@ accept=false
       let file = event.target.files[0];
       reader.readAsDataURL(file);
       reader.onload = () => {
-        console.log(file.type)
         if (file.type.includes('jpg')||file.type.includes('png')||file.type.includes('JPG')||file.type.includes('PNG')||file.type.includes('jpeg')) {
-
           this.filetype = file.type
           this.attachment = "data:image/png;base64,"+reader.result.toString().split(',')[1]
           this.img = reader.result.toString().split(',')[1]
@@ -414,30 +506,46 @@ accept=false
     }
    
   }
-
   openDialogmain(data): void {
     const dialogRef = this.dialog.open(MainComponent, {
-      width: '750px',data:{data: data,proglevel:this.proglevel,strand:this.strand,strand2:this.strandfiltered,courses:this.courses,gradcourses:this.gradcourses}, disableClose: true
+      width: '750px',data:{
+        data: data,
+        proglevel:this.proglevel,
+        strand:this.strand,
+        strand2:this.strandfiltered,
+        courses:this.courses,
+        gradcourses:this.gradcourses
+      }, disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result!=undefined) {
-        
-      if (this.proglevelval!='01'&&this.proglevelval!='02'&&this.proglevelval!='04'&&this.proglevelval!='05') {
-        this.condition=false
+       this.type=''
+       this.runupdate()
+       this.global.swalClose()
       }
-        this.proglevelval = ''
-        this.fname = ''
-       this. mname = ''
-        this.lname = ''
-        this.suffix = ''
-        this.gender = ''
-        this. cnumber = ''
-        this.cperson = ''
-        this.gradfrom = ''
-        this.proglevelval = ''
-        this.accept=false
-        this.global.swalClose()
+    });
+  }
+
+  openDialogUpdate(data): void {
+    const dialogRef = this.dialog.open(UpdateRegComponent, {
+      width: '800px',data:{ 
+        onedata:data,
+        proglevel:this.proglevel,
+        schools:this.schools,
+        courses:this.courses,
+        gradcourses:this.gradcourses,
+        strandfiltered:this.strandfiltered,
+        strand:this.strand
+      }, disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.result!=undefined) {
+        this.type='stat'
+        if (result.result=='updated') {
+          this.runupdate()
+        }
       }
     });
   }
@@ -446,5 +554,67 @@ accept=false
      let loader = this.elRef.nativeElement.querySelector('#loader'); 
      document.getElementById("loader").style.display = "none";
   }
-  
+
+  openprint(){
+    var date
+    var pdate
+    pdate = new Date(this.pdate).toLocaleString();
+    date = new Date(this.bdate).toLocaleString();
+    var strandid = parseInt(this.collegestrandval)
+    var year
+      if (this.yeargrad=='') {
+        year = 0
+      }else
+        year = parseInt(this.yeargrad)
+
+    this.openDialogmain({
+                      "ProgramLevel": this.proglevelval,
+                      "FirstName": this.fname.toUpperCase(),
+                      "MiddleName": this.mname.toUpperCase(),
+                      "LastName": this.lname.toUpperCase(),
+                      "SuffixName": this.suffix.toUpperCase(),
+                      "DateOfBirth": date,
+                      "pdate": pdate,
+                      "Gender": this.gender,
+                      "ContactNumber": this.cnumber,
+                      "ContactPerson": this.cperson,
+                      "SchoolGraduatedFrom": this.gradfrom,
+
+                      "StrandId": strandid,
+                      "PreferredCourseId": this.courseval,
+                      "AlternativeCourseId1": this.courseval1,
+                      "AlternativeCourseId2": this.courseval2,
+                      "YearGraduated": year,
+                      "SchoolAddressNoStreet": this.address,
+                      "SchoolAddressPSGC": this.permPSGC,
+                      "SHS_PriorityStrandID1": this.strandval,
+                      "SHS_PriorityStrandID2": this.strandval1,
+                      "TopOfMyClass": this.condition
+                    })
+  }
+
+  getproglevelval(x){
+    for (var i = 0; i < this.proglevel.length; ++i) {
+      if (this.proglevel[i].programLevel==x) {
+        return this.proglevel[i].progLevelDesc
+      }
+    }
+  }
+
+  getCurrentStrand(x){
+    for (var i = 0; i < this.strand.length; ++i) {
+      if (this.strand[i].strandId==x) {
+        return this.strand[i].strandTitle
+      }
+    }
+  }
+
+
+  getCourse(x){
+    for (var i = 0; i < this.courses.length; ++i) {
+      if (this.courses[i].programId==x) {
+        return this.courses[i].course
+      }
+    }
+  }
 }

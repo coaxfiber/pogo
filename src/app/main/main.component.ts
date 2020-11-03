@@ -26,7 +26,7 @@ export class MainComponent implements OnInit {
   acourse2=''
 
   visible=true
-  constructor(public dialog: MatDialog,public dialogRef: MatDialogRef<MainComponent>,@Inject(MAT_DIALOG_DATA) public data: any,private global: GlobalService,private http: Http) { }
+  constructor(public dialog: MatDialog,public dialogRef: MatDialogRef<MainComponent>,@Inject(MAT_DIALOG_DATA) public data: any,public global: GlobalService,private http: Http) { }
   
   time=0
 

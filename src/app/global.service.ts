@@ -10,7 +10,8 @@ export class GlobalService {
   token
   header = new Headers();
   option:any;
-    email=''
+  email=''
+  sy='2021221'
   constructor() {
      
   }
@@ -33,6 +34,15 @@ export class GlobalService {
           )
   }  
 
+   swalInfo(title,text,type)
+  {
+    Swal.fire(
+      title,
+      text,
+      type
+    )
+  }  
+
   swalSuccess()
   {
     swal.fire({
@@ -42,6 +52,15 @@ export class GlobalService {
            allowEnterKey:false,
          },
           )
+  }
+
+  swalSuccess2(bat){
+    swal.fire({
+      type: 'success',
+      title: bat,
+      showConfirmButton: false,
+      timer: 1500
+    })
   }
 
   swalLoading(val){

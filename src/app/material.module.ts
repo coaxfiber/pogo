@@ -20,20 +20,22 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDatepickerModule} from '@angular/material/datepicker';import {
     MatNativeDateModule
 } from '@angular/material';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatChipsModule} from '@angular/material/chips';
 @NgModule({
   imports: [MatButtonModule, MatToolbarModule,MatIconModule,MatCardModule,MatStepperModule,
   MatFormFieldModule,FormsModule, ReactiveFormsModule,MatInputModule,MatSelectModule,
   MatCheckboxModule,MatListModule,MatGridListModule,MatSidenavModule,MatExpansionModule,
   MatMenuModule,MatTabsModule,MatDialogModule,MatProgressSpinnerModule,MatDatepickerModule,
-  MatNativeDateModule,MatProgressBarModule,MatAutocompleteModule
+  MatNativeDateModule,MatProgressBarModule,MatAutocompleteModule,MatSnackBarModule,MatChipsModule
   ],
   exports: [MatButtonModule, MatToolbarModule,MatIconModule,MatCardModule,MatStepperModule,
   MatFormFieldModule,FormsModule, ReactiveFormsModule,MatInputModule,MatSelectModule,
   MatCheckboxModule,MatListModule,MatGridListModule,MatSidenavModule,MatExpansionModule,
   MatMenuModule,MatTabsModule,MatDialogModule,MatProgressSpinnerModule,MatDatepickerModule,
-  MatNativeDateModule,MatProgressBarModule,MatAutocompleteModule
+  MatNativeDateModule,MatProgressBarModule,MatAutocompleteModule,MatSnackBarModule,MatChipsModule
   ],
 })
 export class MaterialModule { }

@@ -1,7 +1,7 @@
 <div style="max-height: calc(100vh - 200px);overflow-y: auto;">
 <style type="text/css">
   .part1{
-    width: 50%;
+    width: 100%;
     float:left;
   }
 
@@ -16,7 +16,9 @@
   <div style="margin-top: 100px;margin-bottom: 100px;padding-right: 20px">
     <h2>USL Online Registration</h2>
     <p>
-      <b>Register using your account on Google.</b>
+      <b>Register using your account on Google.</b><br><br>
+      Cookies must be enabled in your browser <button style="background-color: #3f51b5;color: white;border: none;border-radius:45%;height: 19px" (click)="Cookies()" >?</button>
+
     </p>
     <button mat-raised-button color="primary" style="color: white;width: 90%" (click)="signInWithGoogle()" [disabled]="!disabled">
       <span class="material-icons">
@@ -29,8 +31,8 @@
     </p>
   </div>
 </div>
-<div class="part1">
+<!-- <div class="part1">
     <img src="https://www.socialmediaexaminer.com/wp-content/uploads/2015/10/jp-facebook-ads-emails-p.png" style="width: 100%">
-</div>
+</div> -->
 
 </div>

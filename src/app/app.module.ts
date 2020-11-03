@@ -19,6 +19,7 @@ import {
   FacebookLoginProvider,
   AmazonLoginProvider,
 } from 'angularx-social-login';
+import { UpdateRegComponent } from './update-reg/update-reg.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,12 +28,14 @@ import {
     InfoComponent,
     InputComponent,
     TermsComponent,
+    UpdateRegComponent,
   ],
   entryComponents: [
     InputComponent,
     MainComponent,
     InfoComponent,
     TermsComponent,
+    UpdateRegComponent,
    ],
   imports: [
     BrowserModule,
