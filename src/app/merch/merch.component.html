@@ -1,0 +1,44 @@
+<h2 style="text-align: center;margin-top: 0px">Merch</h2>
+<br>
+<style type="text/css">
+	
+	.jump:hover {
+		background-color: #e6e6e6;
+	}
+	.jump{
+		float: left;
+		width: calc(25% - 40px);
+		padding: 10px !important;
+		margin: 10px
+	}
+	@media screen and (max-width: 1300px) {
+      .jump {
+		width: calc(32% - 30px);
+      }
+   }
+	@media screen and (max-width: 1000px) {
+      .jump {
+		width: calc(45% - 20px);
+      }
+   }
+	@media screen and (max-width: 700px) {
+      .jump {
+		width: calc(98% - 20px);
+      }
+   }
+</style>
+<div style="margin: auto; max-width: 1200px ">
+				<mat-card class="jump" (click)="openDialog('001',base64)">
+					<img src="assets/001.png" width="100%">
+					<p style="margin: 5px;font-size: 15px; text-align: center;">Merch ID: <b>001</b></p>
+				</mat-card>
+				<mat-card class="jump" (click)="openDialog('002',base64)">
+					<img src="assets/002.png" width="100%">
+					<p style="margin: 5px;font-size: 15px; text-align: center;">Merch ID: <b>002</b></p>
+				</mat-card>
+				<mat-card class="jump" (click)="openDialog('003',base64)">
+					<img src="assets/003.png" width="100%">
+					<p style="margin: 5px;font-size: 15px; text-align: center;">Merch ID: <b>003</b></p>
+				</mat-card>
+
+</div>

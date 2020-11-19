@@ -17,25 +17,16 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatDatepickerModule} from '@angular/material/datepicker';import {
-    MatNativeDateModule
-} from '@angular/material';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatChipsModule} from '@angular/material/chips';
 @NgModule({
   imports: [MatButtonModule, MatToolbarModule,MatIconModule,MatCardModule,MatStepperModule,
   MatFormFieldModule,FormsModule, ReactiveFormsModule,MatInputModule,MatSelectModule,
   MatCheckboxModule,MatListModule,MatGridListModule,MatSidenavModule,MatExpansionModule,
-  MatMenuModule,MatTabsModule,MatDialogModule,MatProgressSpinnerModule,MatDatepickerModule,
-  MatNativeDateModule,MatProgressBarModule,MatAutocompleteModule,MatSnackBarModule,MatChipsModule
+  MatMenuModule,MatTabsModule,MatDialogModule,MatProgressSpinnerModule
   ],
   exports: [MatButtonModule, MatToolbarModule,MatIconModule,MatCardModule,MatStepperModule,
   MatFormFieldModule,FormsModule, ReactiveFormsModule,MatInputModule,MatSelectModule,
   MatCheckboxModule,MatListModule,MatGridListModule,MatSidenavModule,MatExpansionModule,
-  MatMenuModule,MatTabsModule,MatDialogModule,MatProgressSpinnerModule,MatDatepickerModule,
-  MatNativeDateModule,MatProgressBarModule,MatAutocompleteModule,MatSnackBarModule,MatChipsModule
+  MatMenuModule,MatTabsModule,MatDialogModule,MatProgressSpinnerModule
   ],
 })
 export class MaterialModule { }

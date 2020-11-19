@@ -1,113 +1,128 @@
-<div id="scrollMe" #scrollMe style="max-height: calc(100vh - 180px);min-width: 685px;overflow-y: auto;padding-left: 10px;padding-right: 10px">
-	<h2>Your registration is successful.</h2>
-	<p>Please standby for the announcement of your schedule. Your application has been added to our database. Thank you!</p>
-<hr>
-<div id="pdfTable" #pdfTable>
-<h3 style="text-align: center">Applicant Information:</h3>
-<table  id="customers">
-	<tr>
-		<td width="200px">ProgramLevel: </td>
-		<td>{{proglevelval}}</td>
-	</tr>
-	<tr>
-		<td>Full name: </td>
-		<td>{{fullname}}</td>
-	</tr>
-	<tr>
-		<td>Date of birth:</td>
-		<td style="width: calc(50% - 300px)">{{vars.DateOfBirth | date: 'mediumDate'}}</td>
-	</tr>
-	<tr>
-		<td>Gender:</td>
-		<td style="width: calc(50% - 300px)">{{vars.Gender}}</td>
-	</tr>
-	<tr>
-		<td>Contact Number:</td>
-		<td>{{vars.ContactNumber}}</td>
-	</tr>
-	<tr>
-		<td>Email Address:</td>
-		<td>{{global.email}}</td>
-	</tr>
-	<tr *ngIf="vars.ProgramLevel=='01'||vars.ProgramLevel=='02'||vars.ProgramLevel=='03'">
-		<td>Contact Person:</td>
-		<td>{{vars.ContactPerson}}</td>
-	</tr>
-	<tr>
-		<td>Date of Payment:</td>
-		<td>{{vars.pdate | date: 'mediumDate'}}</td>
-	</tr>
-	<tr *ngIf="vars.ProgramLevel=='04'||vars.ProgramLevel=='05'||vars.ProgramLevel=='06'||vars.ProgramLevel=='07'">
-		<td>School Graduated From: </td>
-		<td>{{vars.SchoolGraduatedFrom}}</td>
-	</tr><tr *ngIf="vars.ProgramLevel=='04'||vars.ProgramLevel=='05'||vars.ProgramLevel=='06'||vars.ProgramLevel=='07'">
-		<td>Year Graduated: </td>
-		<td>{{vars.YearGraduated}}</td>
-	</tr>
-	<tr *ngIf="vars.ProgramLevel=='06'">
-		<td>Current Strand: </td>
-		<td>{{currentstrand}}</td>
-	</tr>
-	<tr *ngIf="vars.ProgramLevel=='06'||vars.ProgramLevel=='07'">
-		<td>Preffered Course: </td>
-		<td>{{pcourse}}</td>
-	</tr>
-	<tr *ngIf="vars.ProgramLevel=='06'">
-		<td>Alternative Course 1: </td>
-		<td>{{acourse1}}</td>
-	</tr>
-	<tr *ngIf="vars.ProgramLevel=='06'">
-		<td>Alternative Course 2: </td>
-		<td>{{acourse2}}</td>
-	</tr>
-	<tr *ngIf="vars.ProgramLevel=='05'">
-		<td>Strand Priority 1: </td>
-		<td>{{strandp1}}</td>
-	</tr>
-	<tr *ngIf="vars.ProgramLevel=='05'">
-		<td>Strand Priority 2: </td>
-		<td>{{strandp2}}</td>
-	</tr>
-</table>
-asdasdasd
-<div style="height: 10px"></div>
-<hr>
-<p *ngIf="vars.ProgramLevel=='05'">*NOTE: If you are the TOP 1 or TOP 2 of your batch, please secure a certification signed by your Principal and submit it to the High School Guidance Office. This will exempt you from taking the Entrance Test.</p>
-<b>Please take note of the following:</b>
-<ol type="1">
-<li>You will receive a call or text from the Guidance Office to inform you of your test schedule.</li>
-<li>Please show the CONFIRMATION TEXT to the guard-on-duty when you come for your scheduled entrance test. Only students with confirmation are allowed entry to the University campus.</li>
-<li>Please use a mask (No Mask, No Entry policy) and observe physical distancing when you are inside the campus.</li>
-<li>Only one (1) chaperone per pupil/student is allowed.</li>
-</ol>
-<div  *ngIf="vars.ProgramLevel=='05'||vars.ProgramLevel=='04'||vars.ProgramLevel=='06'"><b>Please take note of the following:</b><br>
+<h2 style="text-align: center;margin-top: 0px">Trainers</h2>
 <br>
-You will receive a confirmation text from USLGuidance of your successful registration to the USL-CET with the following information:<br>
-</div>
+<style type="text/css">
+	
+	mat-card:hover {
+		background-color: #e6e6e6;
+	}
+	.jump{
+		float: left;
+		width: calc(25% - 40px);
+		padding: 10px !important;
+		margin: 10px
+	}
+	@media screen and (max-width: 1300px) {
+      .jump {
+		width: calc(32% - 30px);
+      }
+   }
+	@media screen and (max-width: 1000px) {
+      .jump {
+		width: calc(45% - 20px);
+      }
+   }
+	@media screen and (max-width: 700px) {
+      .jump {
+		width: calc(98% - 20px);
+      }
+   }
+</style>
+<div style="margin: auto; max-width: 1200px ">
+				<mat-card class="jump">
+					<img src="assets/Capture.JPG" width="100%">
+					<h3 style="margin: 5px">Coaxfibergo</h3>
+					<table style="width: 100%">
+						<tr>
+							<td style="width: 25%">
+								<img src="assets/trainercode.JPG" width="100%">
+							</td>
+							<td>
+								Trainer Code:<br>
+								<b>9999 9999 9999</b>
+								<div style="height: 10px"></div>
+								Status: <span style="background-color: green; padding: 3px;border-radius: 8px;color: white;font-size: 12px">Active</span>
+							</td>
+						</tr>
+					</table>
+				</mat-card>
 
-<div *ngIf="vars.ProgramLevel=='05'||vars.ProgramLevel=='04'">
-<ol>
-<li>Clear photocopy of Report Card with a GPA of 80% or above</li>
-<li>Testing fee of P 100.00</li>
-<li>Two lead pencils</li>
-<li>Two pieces of bond paper</li>
-<li>One long white paper folder</li>
-</ol>
-</div>
-<div *ngIf="vars.ProgramLevel=='06'">
-<ol>
 
-<li>Actual date and time of your exam (Month/Day/Year 10:00AM-12:00PM)</li>
-<li>A link that will give you helpful instructions on how to log in and navigate the test module will be provided: <a href="http://bit.ly/USL-CET-Instructions">http://bit.ly/USL-CET-Instructions</a></li>
-<li>A Personal ID Number (21*****) and Password (12***) for you to log in the <a href="https://usl-tuguegarao.neolms.com/">https://usl-tuguegarao.neolms.com/</a> to take the test.</li>
+				<mat-card class="jump">
+					<img src="assets/Capture.JPG" width="100%">
+					<h3 style="margin: 5px">Coaxfibergo</h3>
+					<table style="width: 100%">
+						<tr>
+							<td style="width: 25%">
+								
+								<img src="assets/trainercode.JPG" width="100%">
+							</td>
+							<td>
+								Trainer Code:<br>
+								<b>9999 9999 9999</b>
+								<div style="height: 10px"></div>
+								Status: <span style="background-color: green; padding: 3px;border-radius: 8px;color: white;font-size: 12px">Active</span>
+							</td>
+						</tr>
+					</table>
+				</mat-card>
 
-</ol> 
-&nbsp;<br>
-&nbsp;<br>
-&nbsp;<br>
-&nbsp;<br> 
+
+				<mat-card class="jump">
+					<img src="assets/Capture.JPG" width="100%">
+					<h3 style="margin: 5px">Coaxfibergo</h3>
+					<table style="width: 100%">
+						<tr>
+							<td style="width: 25%">
+								
+								<img src="assets/trainercode.JPG" width="100%">
+							</td>
+							<td>
+								Trainer Code:<br>
+								<b>9999 9999 9999</b>
+								<div style="height: 10px"></div>
+								Status: <span style="background-color: green; padding: 3px;border-radius: 8px;color: white;font-size: 12px">Active</span>
+							</td>
+						</tr>
+					</table>
+				</mat-card>
+
+
+				<mat-card class="jump">
+					<img src="assets/Capture.JPG" width="100%">
+					<h3 style="margin: 5px">Coaxfibergo</h3>
+					<table style="width: 100%">
+						<tr>
+							<td style="width: 25%">
+								
+								<img src="assets/trainercode.JPG" width="100%">
+							</td>
+							<td>
+								Trainer Code:<br>
+								<b>9999 9999 9999</b>
+								<div style="height: 10px"></div>
+								Status: <span style="background-color: green; padding: 3px;border-radius: 8px;color: white;font-size: 12px">Active</span>
+							</td>
+						</tr>
+					</table>
+				</mat-card>
+
+				
+				<mat-card class="jump">
+					<img src="assets/Capture.JPG" width="100%">
+					<h3 style="margin: 5px">Coaxfibergo</h3>
+					<table style="width: 100%">
+						<tr>
+							<td style="width: 25%">
+							
+								<img src="assets/trainercode.JPG" width="100%">
+							</td>
+							<td>
+								Trainer Code:<br>
+								<b>9999 9999 9999</b>
+								<div style="height: 10px"></div>
+								Status: <span style="background-color: green; padding: 3px;border-radius: 8px;color: white;font-size: 12px">Active</span>
+							</td>
+						</tr>
+					</table>
+				</mat-card>
 </div>
-</div>     
-  
-</div>
-<button mat-raised-button color="primary" style="width: calc(100% - 60px);margin: 20px 30px 5px 30px;font-size: 18px;height: 50px" (click)="downloadAsPDF()">Download and Close</button>

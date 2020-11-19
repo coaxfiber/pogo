@@ -1,522 +1,93 @@
-<!-- <mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span>Aura Gorgeous System</span>
-    <span class="example-spacer"></span>
-    <button mat-button   [routerLink]="['/info']" ><mat-icon>touch_app</mat-icon>Info</button>
-  </mat-toolbar-row>
-</mat-toolbar> -->
+<style type="text/css">
+  .notvisible{
+    display:inline;
+  } 
+  .visible{
+    display:none;
+  }
 
-<!-- <mat-drawer-container style="height: 100%">
-  <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+
+  @media screen and (max-width: 900px) {
+      .notvisible{
+    display:none;
+  } 
+  .visible{
+    display:inline;
+  }
+   }
+
+   @media screen and (max-width: 500px) {
+      .pogologo{
+    width: 320px
+  } 
+   }
+</style>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <img src="assets/logopogo.png" class="pogologo">
+    <span class="example-spacer"></span>
+    <button mat-button   [routerLink]="['/home']" class="notvisible"><mat-icon>home</mat-icon>Home</button>
+    <button mat-button   [routerLink]="['/main']"  class="notvisible"><mat-icon>account_box</mat-icon>Trainers</button>
+    <button mat-button   [routerLink]="['/merch']"  class="notvisible"><mat-icon>add_shopping_cart</mat-icon>Merch</button>
+    <button mat-button   [routerLink]="['/info']"  class="notvisible"><mat-icon>touch_app</mat-icon>Info</button>
+    <button mat-button  (click)="signInWithGoogle()" *ngIf='!global.logged' class="notvisible"><mat-icon>fingerprint</mat-icon>Google Login</button>
+    
+        <a mat-button (click)="Logout()"  *ngIf='global.logged' class="notvisible"><mat-icon>logout</mat-icon> LogOut</a>
+    
+    <button mat-button [matMenuTriggerFor]="menu" class="visible"><mat-icon>reorder</mat-icon></button>
+      <mat-menu #menu="matMenu">
+        <button mat-button   [routerLink]="['/info']" ><mat-icon>home</mat-icon>Home</button><br>
+        <button mat-button   [routerLink]="['/main']" ><mat-icon>account_box</mat-icon>Trainers</button><br>
+        <button mat-button   [routerLink]="['/merch']" ><mat-icon>add_shopping_cart</mat-icon>Merch</button><br>
+        <button mat-button   [routerLink]="['/info']" ><mat-icon>touch_app</mat-icon>Info</button><br>
+        <button mat-button  (click)="signInWithGoogle()" *ngIf='!global.logged'><mat-icon>fingerprint</mat-icon>Google Login</button><br>
+        
+            <a mat-button (click)="Logout()"  *ngIf='global.logged'><mat-icon>logout</mat-icon> LogOut</a>
+      </mat-menu>
+  </mat-toolbar-row>
+</mat-toolbar>
+<style type="text/css">
+  .bg {
+  /* The image used */
+  background-image: url("assets/bg2.jpg");
+
+  /* Full height */
+  height: calc(100% - 64px); 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+}
+</style>
+<mat-drawer-container class="bg">
+  <mat-drawer #drawer class="example-sidenav" mode="side" ><!--opened-->
     <div id="sidenav">
-    <a mat-button   [routerLink]="['/login']" ><mat-icon>supervised_user_circle</mat-icon> Login</a><br>
-    <a mat-button   [routerLink]="['/main']" ><mat-icon>dashboard</mat-icon> Serial Section</a><br>
+      <div *ngIf='!global.logged'>
+        <p>Log in to view options.</p>
+        <button mat-button  (click)="signInWithGoogle()" *ngIf='!global.logged'><mat-icon>fingerprint</mat-icon>Google Login</button>
+      </div>
+      <div *ngIf='global.logged'>
+        <p>Welcome {{name}}</p>
+        <a mat-button (click)="openDialog(1)"><mat-icon>supervised_user_circle</mat-icon> Trainer Info</a><br>
+        <a mat-button (click)="Logout()" ><mat-icon>logout</mat-icon> LogOut</a><br>
+      </div>
     </div>
   </mat-drawer>
 
   <div>
     <button type="button" mat-button (click)="drawer.toggle()">
-      <i class="material-icons">reorder</i>
+      <i class="material-icons">list</i>
     </button>
 
-    <div style="padding: 20px"> -->
-<!-- 
-      <router-outlet></router-outlet> -->
+    <div style="padding: 20px">
+
+      <router-outlet></router-outlet>
       
-<!--     </div>
+    </div>
   </div>
 
 
 </mat-drawer-container>
- -->
-<mat-card style="max-width: 800px;margin: 25px auto;background-color: #f2f3f7;" id="boxx" *ngIf="login==false">
-  <mat-progress-bar mode="indeterminate" style="margin: 50px 20px 20px 20px;width: calc(100% - 40px)"></mat-progress-bar>
-</mat-card>
-<mat-card style="max-width: 800px;margin: 25px auto;background-color: #f2f3f7;" id="boxx" *ngIf="login">
-   <p style="font-size: 25px;padding-top: 30px;padding-bottom: 5px;text-align: center;">USL Online Registration</p>
 
-<style type="text/css">
-  @media only screen and (max-width: 800px) {
-  .fullwidth {
-    width: 100% !important;
-    margin-right: 0px;
-  }
-  #boxx{
-    margin: 25px 10px 25px 10px;
-  }
-}
-</style>
-
-    <mat-progress-bar mode="indeterminate" style="margin: 50px 20px 20px 20px;width: calc(100% - 40px)"  *ngIf='loading'></mat-progress-bar>
-    <p style="text-align: center; padding-bottom: 50px"  *ngIf='loading'>Loading Data...</p>
-
-    <div  *ngIf='loading==false' style="padding-right: 30px;padding-left: 30px;">
-      Welcome <b>{{global.email}}</b>&nbsp;&nbsp;
-      <button style="font-size: 12px;float: right;" (click)="signOut()">
-        <table>
-          <tr>
-            <td><img src="assets/logout.png" style="height: 13px;"></td>
-            <td valign="top"> Log out</td>
-          </tr>
-        </table>
-         
-      </button>
-    </div>
-    <div style="height: 10px"></div>
-
-  <div *ngIf="type=='reg'">
-    <table style="width: 100%" *ngIf='loading==false'>
-      <tr> 
-        <td style="width: 100%;padding-left: 30px;padding-right: 30px;margin-top: -10px">
-          <mat-form-field appearance="outline" style="width: 100%">
-            <mat-label>Select your Program Level</mat-label>
-            <mat-select [(ngModel)]="proglevelval" (ngModelChange)='check()'>
-              <mat-option *ngFor="let a of proglevel" value="{{a.programLevel}}">{{a.progLevelDesc}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </td>
-      </tr>
-    </table>
-
-
-    <p style="padding-bottom: 15px;margin-top: -10px;margin-left: 40px;padding-right: 30px" *ngIf="proglevelval=='01'">
-      <mat-checkbox  [(ngModel)]="condition" >The child must be 4 years old</mat-checkbox> by October 31, 2020.
-    </p>
-
-    <p style="padding-bottom: 15px;margin-top: -10px;margin-left: 40px;padding-right: 30px" *ngIf="proglevelval=='02'">
-      <mat-checkbox  [(ngModel)]="condition">The child must be 5 years old</mat-checkbox> by October 31, 2020.
-    </p>
-
-    <p style="padding-bottom: 15px;margin-top: -10px;margin-left: 40px;padding-right: 30px" *ngIf="proglevelval=='04'">
-      <mat-checkbox  [(ngModel)]="condition">You must have a </mat-checkbox> general weighted average of at least 80%.
-    </p>
-
-    <p style="padding-bottom: 15px;margin-top: -10px;margin-left: 40px;padding-right: 30px" *ngIf="proglevelval=='05'">
-      <mat-checkbox  [(ngModel)]="condition" >You must have a </mat-checkbox> general weighted average of at least 80% with no failing grades in any of the grading periods.
-    </p>
-    <p style="padding-bottom: 15px;margin-top: -10px;margin-left: 48px;padding-right: 30px;font-size: 16px" *ngIf="(proglevelval=='01'||proglevelval=='02'||proglevelval=='03')&&condition"><b>Please provide child information and click register.</b></p>
-    <div *ngIf="proglevelval!=''&&condition">
-    <div *ngIf="proglevelval!=''&&loading==false">
-    <table style="width: 100%;margin-top: -15px">
-      <tr>
-        <td style="width: 50%;padding-right: 30px;padding-left: 30px" colspan="3">
-          <mat-form-field appearance="outline" style="width: 100%">
-              <mat-label>First name</mat-label>
-              <input matInput placeholder="" [(ngModel)]="fname" autocomplete="off">
-          </mat-form-field>
-        </td>
-        
-      </tr>
-    </table>
-    <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px">
-          <mat-form-field appearance="outline" style="width: calc(35% - 10px);margin-right: 10px" class="fullwidth">
-              <mat-label>Middle name</mat-label>
-              <input matInput placeholder="" [(ngModel)]="mname" autocomplete="off">
-          </mat-form-field>
-          <mat-form-field appearance="outline" style="width: calc(40% - 10px);margin-right: 10px" class="fullwidth">
-              <mat-label>Last name</mat-label>
-              <input matInput placeholder="" [(ngModel)]="lname" autocomplete="off" >
-          </mat-form-field>
-          <mat-form-field appearance="outline" style="width: 25%" class="fullwidth">
-              <mat-label>Suffix</mat-label>
-              <input matInput placeholder="" [(ngModel)]="suffix" autocomplete="off">
-          </mat-form-field>
-    </div>
-
-    <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px">
-         
-          <mat-form-field appearance="outline" style="width: calc(35% - 10px);margin-right: 10px" class="fullwidth">
-            <mat-label>Gender</mat-label>
-            <mat-select  [(ngModel)]="gender">
-              <mat-option value="M">Male</mat-option>
-              <mat-option value="F">Female</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field appearance="outline"  style="width: calc(40% - 10px);margin-right: 10px" class="fullwidth">
-              <mat-label>Birth Date</mat-label>
-          <input readonly matInput [matDatepicker]="picker" placeholder="Birth Date" (click)="picker.open()"  [(ngModel)]="bdate" name="bdate">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-        <mat-form-field appearance="outline" style="width: 25%"  class="fullwidth">
-              <mat-label>Contact Number</mat-label>
-              <input matInput autocomplete="off" [(ngModel)]="cnumber" placeholder="0917XXXXXXX" maxlength="11">
-          </mat-form-field>
-    </div>
-
-    <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px"  *ngIf="proglevelval=='01'||proglevelval=='02'||proglevelval=='03'">
-         
-          
-          <mat-form-field appearance="outline"  style="width: calc(30% - 10px);margin-right: 10px" class="fullwidth">
-              <mat-label>Contact Person</mat-label>
-              <input matInput placeholder="" autocomplete="off" [(ngModel)]="cperson">
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" style="width: 50%;margin-right: 10px"  *ngIf="proglevelval!='01'&&proglevelval!='02'&&proglevelval!='03'" class="fullwidth">
-            <mat-label>School Graduated From</mat-label>
-            <input type="text" placeholder="" [(ngModel)]="gradfrom" matInput [matAutocomplete]="auto" (keydown)='keyDownFunction()'>
-            <mat-autocomplete #auto="matAutocomplete">
-              <mat-option *ngFor="let option of schoolstemp" [value]="option">
-                {{option}}
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" style="width: calc(20% - 10px);" class="fullwidth"   *ngIf="proglevelval!='01'&&proglevelval!='02'&&proglevelval!='03'">
-            <mat-label>Year Graduated</mat-label>
-            <mat-select  [(ngModel)]="yeargrad">
-              <mat-option *ngFor="let a of currdatearray" value="{{a}}">{{a}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-    </div>
-
-    <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px"  *ngIf="proglevelval=='04'||proglevelval=='05'||proglevelval=='06'||proglevelval=='07'">
-         
-          
-          <mat-form-field appearance="outline" style="width: 70%;margin-right: 10px"  *ngIf="proglevelval!='01'&&proglevelval!='02'&&proglevelval!='03'" class="fullwidth">
-            <mat-label>School Graduated From</mat-label>
-            <input type="text" placeholder="" [(ngModel)]="gradfrom" matInput [matAutocomplete]="auto" (keydown)='keyDownFunction()'>
-            <mat-autocomplete #auto="matAutocomplete">
-              <mat-option *ngFor="let option of schoolstemp" [value]="option">
-                {{option}}
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" style="width: calc(30% - 10px);" class="fullwidth"   *ngIf="proglevelval!='01'&&proglevelval!='02'&&proglevelval!='03'">
-            <mat-label>Year Graduated</mat-label>
-            <mat-select  [(ngModel)]="yeargrad">
-              <mat-option *ngFor="let a of currdatearray" value="{{a}}">{{a}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-    </div>
-
-      <table style="padding-left: 30px;padding-right: 30px;margin-top: -10px;width: 100%" *ngIf="proglevelval=='04'||proglevelval=='05'||proglevelval=='06'||proglevelval=='07'">
-      <tr>
-        <td>
-        <mat-form-field style="width: calc(100% - 50px)" appearance="outline"  (click)="lookup()">
-          <mat-label>School Address</mat-label>
-          <input autofocus matInput [(ngModel)]="address" readonly="readonly">
-          
-        </mat-form-field>
-        <button mat-mini-fab color="primary"  (click)="lookup()" style="float: right;margin-top: 13px">
-          <mat-icon>search</mat-icon>
-        </button>
-        </td>
-      </tr>
-      </table>
-
-
-    <div *ngIf="proglevelval=='05'">
-      <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px">
-            <mat-form-field appearance="outline" style="width: calc(100% - 10px);margin-right: 10px" class="fullwidth">
-              <mat-label>Select Strand Priority 1</mat-label>
-              <mat-select [(ngModel)]="strandval">
-                <mat-option *ngFor="let a of strandfiltered" value="{{a.strandId}}">{{a.strandTitle}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-      </div>
-      <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px">
-           
-            <mat-form-field appearance="outline" style="width: calc(100% - 10px);margin-right: 10px" class="fullwidth">
-              <mat-label>Select Strand Priority 2</mat-label>
-              <mat-select [(ngModel)]="strandval1">
-                <mat-option *ngFor="let a of strandfiltered" value="{{a.strandId}}">{{a.strandTitle}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-      </div>
-      <p style="padding-left: 45px;padding-right: 30px;margin-top: -10px;margin-bottom: 25px"><a href="#">Learn more</a> about Academic Tracks.</p>
-    </div>
-
-    <div *ngIf="proglevelval=='06'">
-      <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px">
-            <mat-form-field appearance="outline" style="width: calc(100% - 10px);margin-right: 10px" class="fullwidth">
-              <mat-label>Select Current Strand</mat-label>
-              <mat-select [(ngModel)]="collegestrandval">
-                <mat-option *ngFor="let a of strand" value="{{a.strandId}}">{{a.strandTitle}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-      </div>
-    <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px">
-          <mat-form-field appearance="outline" style="width: calc(100% - 10px);margin-right: 10px" class="fullwidth">
-            <mat-label>Select Preferred Course</mat-label>
-            <mat-select [(ngModel)]="courseval">
-              <mat-option *ngFor="let a of courses" value="{{a.programId}}">{{a.course}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-    </div>
-    <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px">
-          <mat-form-field appearance="outline" style="width: calc(100% - 10px);margin-right: 10px" class="fullwidth">
-            <mat-label>Select Alternative Course 1</mat-label>
-            <mat-select [(ngModel)]="courseval1">
-              <mat-option *ngFor="let a of courses" value="{{a.programId}}">{{a.course}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-    </div>
-    <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px">
-          <mat-form-field appearance="outline" style="width: calc(100% - 10px);margin-right: 10px" class="fullwidth">
-            <mat-label>Select Alternative Course 2</mat-label>
-            <mat-select [(ngModel)]="courseval2">
-              <mat-option *ngFor="let a of courses" value="{{a.programId}}">{{a.course}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-    </div>
-    </div>
-    <div *ngIf="proglevelval=='07'">
-    <div style="padding-left: 30px;padding-right: 30px;margin-top: -10px">
-          <mat-form-field appearance="outline" style="width: calc(100% - 10px);margin-right: 10px" class="fullwidth">
-            <mat-label>Select Program</mat-label>
-            <mat-select [(ngModel)]="courseval">
-              <mat-option *ngFor="let a of gradcourses" value="{{a.programId}}">{{a.course}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-    </div>    
-    </div>
-    <div  *ngIf="proglevelval!=''&&loading==false" style="padding-left: 30px;clear: both">
-          <div style="float: left;width: 40%"  class="fullwidth">
-            <div style="height: 5px"></div>
-              Upload Proof of Payment:<br>
-              <input mat-raised-button type="file" id="avatar" (change)="onFileChange($event)" #fileInput class="inputfile" style="margin-top: 10px;margin-bottom: 5px"/>
-          </div>
-          <div style="float: left;width: 50%;"  class="fullwidth">
-           <mat-form-field appearance="outline"  style="width: calc(90% - 20px);float: left;">
-                  <mat-label>Date of Payment</mat-label>
-              <input readonly matInput [matDatepicker]="picker2" placeholder="Payment Date" (click)="picker2.open()"  [(ngModel)]="pdate" name="pdate">
-              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-              <mat-datepicker #picker2></mat-datepicker>
-            </mat-form-field>
-          </div>
-
-
-              <img [src]='attachment'  *ngIf='attachment!=""' style="width:calc(100% - 30px)" />
-
-            <div style="height: 15px"></div>
-    </div>
-
-    <p style="margin-bottom: 15px;margin-top: 10px;margin-left: 40px">
-      <mat-checkbox  [(ngModel)]="accept">I accept the &nbsp;</mat-checkbox> <a href="javascript:void(0)" (click)="openDialog()">Term of Use</a>
-    </p>
-
-    <button mat-raised-button color="primary" style="width: calc(100% - 60px);margin: 0 30px 30px 30px;font-size: 18px;height: 50px" (click)="register()" [disabled]="!accept">Register</button>
-
-    </div>
-    </div>
-    </div>
-
-    <div style="overflow: auto;" *ngIf="type=='stat'">
-  <div style="width: 62%;float: left;" class="fullwidth" >
-      <div style="padding: 20px;">
-      <h3 style="text-align: left;margin-top: 0px">Applicant Information:</h3>
-      <table  id="customers"  *ngIf="vars!=undefined">
-        <tr>
-          <td width="200px">ProgramLevel: </td>
-          <td>{{getproglevelval(proglevelval)}}</td>
-        </tr>
-        <tr>
-          <td>Full name: </td>
-          <td>{{lname}}, {{fname}} {{mname}} {{suffix}}</td>
-        </tr>
-        <tr>
-          <td>Date of birth:</td>
-          <td style="width: calc(50% - 300px)">{{vars.DateOfBirth | date: 'mediumDate'}}</td>
-        </tr>
-        <tr>
-          <td>Gender:</td>
-          <td style="width: calc(50% - 300px)">{{vars.Gender}}</td>
-        </tr>
-        <tr>
-          <td>Contact Number:</td>
-          <td>{{vars.ContactNumber}}</td>
-        </tr>
-        <tr>
-          <td>Email Address:</td>
-          <td>{{global.email}}</td>
-        </tr>
-        <tr *ngIf="vars.ProgramLevel=='01'||vars.ProgramLevel=='02'||vars.ProgramLevel=='03'">
-          <td>Contact Person:</td>
-          <td>{{vars.ContactPerson}}</td>
-        </tr>
-        <tr>
-          <td>Date of Payment:</td>
-          <td>{{vars.pdate | date: 'mediumDate'}}</td>
-        </tr>
-        <tr *ngIf="vars.ProgramLevel=='04'||vars.ProgramLevel=='05'||vars.ProgramLevel=='06'||vars.ProgramLevel=='07'">
-          <td>School Graduated From: </td>
-          <td>{{vars.SchoolGraduatedFrom}}</td>
-        </tr><tr *ngIf="vars.ProgramLevel=='04'||vars.ProgramLevel=='05'||vars.ProgramLevel=='06'||vars.ProgramLevel=='07'">
-          <td>Year Graduated: </td>
-          <td>{{vars.YearGraduated}}</td>
-        </tr>
-        <tr *ngIf="vars.ProgramLevel=='06'">
-          <td>Current Strand: </td>
-          <td>{{getCurrentStrand(collegestrandval)}}</td>
-        </tr>
-        <tr *ngIf="vars.ProgramLevel=='06'||vars.ProgramLevel=='07'">
-          <td>Preffered Course: </td>
-          <td>{{getCourse(courseval)}}</td>
-        </tr>
-        <tr *ngIf="vars.ProgramLevel=='06'">
-          <td>Alternative Course 1: </td>
-          <td>{{getCourse(courseval1)}}</td>
-        </tr>
-        <tr *ngIf="vars.ProgramLevel=='06'">
-          <td>Alternative Course 2: </td>
-          <td>{{getCourse(courseval2)}}</td>
-        </tr>
-        <tr *ngIf="vars.ProgramLevel=='05'">
-          <td>Strand Priority 1: </td>
-          <td>{{strandp1}}</td>
-        </tr>
-        <tr *ngIf="vars.ProgramLevel=='05'">
-          <td>Strand Priority 2: </td>
-          <td>{{strandp2}}</td>
-        </tr>
-      </table>
-
-      </div>  
-
-
-    <button mat-raised-button color="primary" style="background-color: #3f51b5;color: white;margin-left: 20px" (click)="openprint()">
-      <span class="material-icons">
-      print
-    </span> View Print</button>
-    
-    <button mat-raised-button color="primary" style="float:right;background-color: #3f51b5;color: white;margin-right: 20px" (click)="openDialogUpdate(onedata)" *ngIf="onedata.paymentVerified!=2">
-      <span class="material-icons">
-        edit
-      </span> Update</button>
-      <div style="height: 15px"></div>
-    </div>
-  <div style="float: right; width: 36%;" class="fullwidth" >
-    <div style="padding: 20px 40px 40px 40px">
-       <h3 style="text-align: left;margin-top: 0px">Registration Status</h3>
-
-       <style type="text/css">
-         .mat-expansion-panel-header{
-          padding-left: 2px;
-          padding-right: 9px;
-         }
-       </style>
-      <mat-expansion-panel style="width: 220px">
-       <mat-expansion-panel-header>
-          <mat-panel-title>
-             <table style="padding-top: 5px">
-               <tr>
-                 <td>
-                    <img src="assets/onprocess.png" style="height: 40px">
-                 </td>
-                 <td>
-                  <!--  <button style="background-color: #3f51b5;color: white;border: none;border-radius:45%;height: 19px" (click)="global.swalInfo('On Process', 'Your registration is on process. Please wait (2-3 days) for the Accounting office to verify your payment.<br>Thank you!','info')" >?</button> -->
-                 </td>
-               </tr>
-             </table>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-
-        Your registration is on process. Please wait (2-3 days) for the Accounting office to verify your payment.<br>Thank you!
-
-      </mat-expansion-panel>
-
-      <div style="height: 5px"></div>
-
-       <mat-expansion-panel style="width: 220px" *ngIf="onedata.paymentVerified==0">
-       <mat-expansion-panel-header>
-          <mat-panel-title>
-             <table style="padding-top: 5px">
-               <tr>
-                 <td>
-                    <img src="assets/noverified.png" style="height: 40px">
-                 </td>
-               </tr>
-             </table>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-
-        Your Registration is still on process.
-
-      </mat-expansion-panel>
-
-      <div style="height: 5px"></div>
-
-       <mat-expansion-panel style="width: 220px" *ngIf="onedata.paymentVerified==1">
-       <mat-expansion-panel-header>
-          <mat-panel-title>
-             <table style="padding-top: 5px">
-               <tr>
-                 <td>
-                    <img src="assets/verified.png" style="height: 40px">
-                 </td>
-               </tr>
-             </table>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-
-        Your Registration is Verified. Please wait for the text message or check this site for your exam schedule.
-
-      </mat-expansion-panel>
-
-      <div style="height: 5px" *ngIf="onedata.paymentVerified==1"></div>
-
-       <mat-expansion-panel style="width: 220px" *ngIf="onedata.paymentVerified==2">
-       <mat-expansion-panel-header>
-          <mat-panel-title>
-             <table style="padding-top: 5px">
-               <tr>
-                 <td>
-                    <img src="assets/notverified.png" style="height: 40px">
-                 </td>
-               </tr>
-             </table>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-
-        {{onedata.remarksVerification}}
-
-      </mat-expansion-panel>
-       
-      <div style="height: 5px" *ngIf="onedata.paymentVerified==2"></div>
-
-       
-       <mat-expansion-panel style="width: 220px" *ngIf="cet">
-       <mat-expansion-panel-header>
-          <mat-panel-title>
-             <table style="padding-top: 5px">
-               <tr>
-                 <td>
-                    <img src="assets/nocetsched.png" style="height: 40px">
-                 </td>
-               </tr>
-             </table>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-
-        No CET Schedule Yet
-
-      </mat-expansion-panel>
-
-      <div style="height: 5px"></div>
-
-      <mat-expansion-panel style="width: 220px" *ngIf="result">
-       <mat-expansion-panel-header>
-          <mat-panel-title>
-             <table style="padding-top: 5px">
-               <tr>
-                 <td>
-                    <img src="assets/nocetresult.png" style="height: 40px">
-                 </td>
-               </tr>
-             </table>
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-
-        No CET Result Yet
-
-      </mat-expansion-panel>
-
-
-    </div>
-     
-  </div>
-  </div>
-
-  </mat-card>

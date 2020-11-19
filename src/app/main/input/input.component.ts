@@ -17,12 +17,21 @@ export class InputComponent implements OnInit {
 	id=''
 	title=''
   constructor(public dialog: MatDialog,public dialogRef: MatDialogRef<InputComponent>,@Inject(MAT_DIALOG_DATA) public data: any,private global: GlobalService,private http: Http) { 
-    
+  	if (data.type==1) {
+  		this.title = "Journal";
+  	}else if (data.type==2) {
+  		this.title = "News Paper";
+  	}else if (data.type==3) {
+  		this.title = "Magazine";
+  	}
   }
-  closethis(){
-       this.dialogRef.close({result:'cancel'});
-  }
+
   ngOnInit() {
   }
 
+  keyDownFunction(event) {
+  		if(event.keyCode == 13 || event.keyCode == 9 || event == 'onoutfocus') {
+			this.sid.nativeElement.focus();
+		}
+  }
 }

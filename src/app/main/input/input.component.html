@@ -1,15 +1,28 @@
-<div style="max-height: calc(100vh - 100px);overflow-y: auto;">
-
-	<h3 style="text-align: center;">
-  DATA PRIVACY NOTICE AND PERSONAL DATA PROTECTION CONSENT FORM
+<h3 style="text-align: center;">
+	Trainer Info
 </h3>
-<p style="text-align: left;padding-left: 20px;margin:auto;">
-
-University of Saint Louis (the “Company”) shall protect the data that you have provided in compliance with the Data Privacy Law of 2012 and its implementing rules and regulations. The University will not collect, disclose or process personal data, including data that may be classified as personal information and/or sensitive personal information unless you voluntarily choose to provide us with it and give your consent thereto, or unless such disclosure is required by applicable laws and regulations. 
-<br><br>
-By agreeing to this term, you confirm that you freely and voluntarily give consent to the collection of data, which may include personal information and/or sensitive information (the “Data”) set out in this electronic form and/or otherwise provided by you or possessed by the University to be used for authorized purposes.
-<br><br>
-You understand that you are given certain rights under the Data Privacy Act, including the right to object to processing of your data, the right to access your data, the right to correct any inaccurate data, and the right to erasure or blocking of data. For more information on these rights, and for requests to review the Data, to withdraw consent to the use of the Data, and/or to correct or update the Data, please contact our Data Privacy Compliance Officer at dpco@usl.edu.ph.
+<p style="text-align: center;padding-left: 20px;margin:auto;">
+  
 </p>
-<button mat-raised-button color="primary" style="width: calc(100% - 60px);margin:15px 30px 10px 30px;font-size: 15px;" (click)="closethis()">Close</button>
-</div>
+<table style="width: 100%">
+	<tr>
+		<td>
+			<img src="../assets/loading.gif" style="width: 200px">
+		</td>
+		<td valign="top">
+			<div style="height: 10px"></div>
+			<mat-form-field appearance="outline">
+			    <mat-label>Trainer Name:</mat-label>
+			    <input #tid matInput placeholder="e.g. Ash Ketchum" [(ngModel)]='id' autocomplete="off" (keydown)="keyDownFunction($event)">
+			    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+			  </mat-form-field>
+		  <mat-form-field appearance="outline">
+		    <mat-label>Trainer Code:</mat-label>
+		    <input matInput placeholder="0000 0000 0000" autocomplete="off" #sid>
+		    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+		  </mat-form-field>
+		</td>
+	</tr>
+</table>
+
+---------- Not yet Implemented ----------<button mat-button style="color: white;background-color: #DC143C;margin-bottom: 10px;float: right;right: 10px;top: 10px;"><mat-icon>close</mat-icon>Update</button>

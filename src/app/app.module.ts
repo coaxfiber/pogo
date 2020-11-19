@@ -10,16 +10,20 @@ import { MainComponent } from './main/main.component';
 import { InfoComponent } from './info/info.component';
 import { InputComponent } from './main/input/input.component';
 import { HttpModule } from '@angular/http';
-import { TermsComponent } from './terms/terms.component';
 
 
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import {
-  GoogleLoginProvider,
-  FacebookLoginProvider,
-  AmazonLoginProvider,
+  GoogleLoginProvider
 } from 'angularx-social-login';
-import { UpdateRegComponent } from './update-reg/update-reg.component';
+
+//import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { HomeComponent } from './home/home.component';
+import { MerchComponent } from './merch/merch.component';
+import { MerchzoomComponent } from './merch/merchzoom/merchzoom.component';
+
+import { QRCodeModule } from 'angularx-qrcode';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,15 +31,13 @@ import { UpdateRegComponent } from './update-reg/update-reg.component';
     MainComponent,
     InfoComponent,
     InputComponent,
-    TermsComponent,
-    UpdateRegComponent,
+    HomeComponent,
+    MerchComponent,
+    MerchzoomComponent,
   ],
   entryComponents: [
     InputComponent,
-    MainComponent,
-    InfoComponent,
-    TermsComponent,
-    UpdateRegComponent,
+    MerchzoomComponent
    ],
   imports: [
     BrowserModule,
@@ -43,12 +45,12 @@ import { UpdateRegComponent } from './update-reg/update-reg.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpModule,
-    
-    SocialLoginModule
+    SocialLoginModule,
+    QRCodeModule
+    //NgxQRCodeModule
   ],
-  providers: [GlobalService,
-  {
-    provide: 'SocialAuthServiceConfig',
+  providers: [GlobalService,{
+      provide: 'SocialAuthServiceConfig',
       useValue: {
         autoLogin: false,
         providers: [
