@@ -1,3 +1,58 @@
-<p>
-  home page! this will display front page. anouncement or news here
-</p>
+<div>
+	<mat-tab-group style="color: white !important;">
+	  <mat-tab label="{{a.name | uppercase}}" *ngFor="let a of global.region">
+	  	<div style="padding: 10px;background-color: white" *ngIf="a.regiondata!=undefined&&a.regiondata!=selectedpokedex">
+			<mat-form-field  appearance="outline">
+			  <mat-label>Pokedexes</mat-label>
+			  <mat-select [(ngModel)]='a.selectedpokedex'>
+			    <mat-option *ngFor="let b of a.regiondata.pokedexes" value="{{b.name}}">
+			      {{b.name | uppercase}}
+			    </mat-option>
+			  </mat-select>
+			</mat-form-field>
+			<div *ngFor="let b of a.regiondata.pokedexes">
+				<div *ngIf="a.selectedpokedex==b.name" style="color: black">
+					<div style="padding: 10px;" *ngIf="b.pokemon_entries!=undefined">
+						<div  *ngFor="let c of b.pokemon_entries">
+							{{ c.entry_number }}
+						</div>
+					</div>
+				</div>
+			</div>
+	  	</div>
+	  </mat-tab>
+	</mat-tab-group>
+</div>
+<style type="text/css">
+	.red {
+		color: red;
+	}
+	.blue {color: blue}
+</style>
+<div style="padding: 10px;width: 400px;background-color: blue;color: white;position: absolute;right: 10px;top: 0;z-index: 2">
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+      	{{status}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+			<span style="font-size: 11px"><b>Last Update: </b>{{lastupdate}}<br>
+			<div style="height: 8px"></div></span>
+			 <button (click)="reset()">Update</button>
+			<div style="height: 8px"></div>
+	<div *ngFor="let a of global.region">
+		<b>{{a.name | uppercase}}</b><br>
+		<div *ngIf="a.regiondata!=undefined">
+			<div style="margin: 5px"  *ngFor="let b of a.regiondata.pokedexes; let i = index" >
+				<div  *ngIf='b.percent!=undefined'>
+					<div class='{{checkcolor(b.percent==b.pokemon_entries.length)}}'>
+						<span>{{b.percent}}/{{b.pokemon_entries.length}}</span> {{b.name}} pokedex
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</mat-expansion-panel>
+</mat-accordion>
+</div>

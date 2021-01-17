@@ -23,6 +23,7 @@ import { MerchComponent } from './merch/merch.component';
 import { MerchzoomComponent } from './merch/merchzoom/merchzoom.component';
 
 import { QRCodeModule } from 'angularx-qrcode';
+import {NgxWebstorageModule} from 'ngx-webstorage';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     BrowserAnimationsModule,
     HttpModule,
     SocialLoginModule,
-    QRCodeModule
+    QRCodeModule,
+    NgxWebstorageModule.forRoot(),
     //NgxQRCodeModule
   ],
   providers: [GlobalService,{

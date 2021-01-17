@@ -7,6 +7,8 @@ const swal = Swal;
 export class GlobalService {
  email
  logged=false
+
+ region=[]
   constructor() {
      
   }

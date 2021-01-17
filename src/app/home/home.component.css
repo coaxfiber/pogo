@@ -1,0 +1,16 @@
+.mat-tab-label {
+    background-color: white;
+    font-weight: bold;
+    min-width: 25px !important;
+}
+
+/* Styles for the active tab label */
+.mat-tab-label.mat-tab-label-active {
+    background-color: white;
+    font-weight: bold;
+}
+
+/* Styles for the ink bar */
+.mat-ink-bar {
+    background-color: white;
+}
