@@ -36,8 +36,8 @@ export class HomeComponent implements OnInit {
 	      	this.global.region[x].regiondata=[]
 	      	this.global.region[x].selectedpokedex='0'
   			if (this.localSt.retrieve(this.global.region[x].url+'selectedpokedex')!=null&&this.localSt.retrieve(this.global.region[x].url+'selectedpokedex')!='undefined') {
-		      	this.global.region[x].regiondata=this.localSt.retrieve(this.global.region[x].url)
-		      	this.global.region[x].selectedpokedex=this.localSt.retrieve(this.global.region[x].url+'selectedpokedex')
+		      	//this.global.region[x].regiondata=this.localSt.retrieve(this.global.region[x].url)
+		      	//this.global.region[x].selectedpokedex=this.localSt.retrieve(this.global.region[x].url+'selectedpokedex')
   			}
 
 	      	for (var y = 0; y < this.global.region[x].regiondata.pokedexes.length; ++y) {
@@ -45,8 +45,8 @@ export class HomeComponent implements OnInit {
 			  	this.global.region[x].regiondata.pokedexes[y].pokemon_entries=[]
 			  	if (this.global.region[x].regiondata.pokedexes[y].url!=undefined&&this.localSt.retrieve(this.global.region[x].regiondata.pokedexes[y].url)!='undefined') {
 		      		if (this.localSt.retrieve(this.global.region[x].regiondata.pokedexes[y].url)!=null) {
-					  	this.global.region[x].regiondata.pokedexes[y].pokemon_entries=this.localSt.retrieve(this.global.region[x].regiondata.pokedexes[y].url)
-					  	this.global.region[x].regiondata.pokedexes[y].percent=parseInt(this.localSt.retrieve(this.global.region[x].regiondata.pokedexes[y].url+'percent'))
+					  	//this.global.region[x].regiondata.pokedexes[y].pokemon_entries=this.localSt.retrieve(this.global.region[x].regiondata.pokedexes[y].url)
+					  	//this.global.region[x].regiondata.pokedexes[y].percent=parseInt(this.localSt.retrieve(this.global.region[x].regiondata.pokedexes[y].url+'percent'))
 		      		}
 			  	}
 
@@ -55,8 +55,8 @@ export class HomeComponent implements OnInit {
 				  	this.global.region[x].regiondata.pokedexes[y].pokemon_entries[z].details=[]
 				  	if (this.global.region[x].regiondata.pokedexes[y].pokemon_entries[z].pokemon_species.url!=undefined&&localStorage.getItem(this.global.region[x].regiondata.pokedexes[y].pokemon_entries[z].pokemon_species.url)!='undefined') {
 				  		if (this.localSt.retrieve(this.global.region[x].regiondata.pokedexes[y].pokemon_entries[z].pokemon_species.url)!=null) {
-						  	this.global.region[x].regiondata.pokedexes[y].percent = parseInt(this.localSt.retrieve(this.global.region[x].regiondata.pokedexes[y].url+'percent'))
-						  	this.global.region[x].regiondata.pokedexes[y].pokemon_entries[z].details=this.localSt.retrieve(this.global.region[x].regiondata.pokedexes[y].pokemon_entries[z].pokemon_species.url)
+						  	//this.global.region[x].regiondata.pokedexes[y].percent = parseInt(this.localSt.retrieve(this.global.region[x].regiondata.pokedexes[y].url+'percent'))
+						  	//this.global.region[x].regiondata.pokedexes[y].pokemon_entries[z].details=this.localSt.retrieve(this.global.region[x].regiondata.pokedexes[y].pokemon_entries[z].pokemon_species.url)
 				  		}
 				  	}
 			  	}
@@ -114,8 +114,8 @@ export class HomeComponent implements OnInit {
 			  .map(response => response.json())
 			  .subscribe(res => {
 
-        			this.localSt.store(this.global.region[x].regiondata.pokedexes[y].url, res.pokemon_entries);
-        			this.localSt.store(this.global.region[x].regiondata.pokedexes[y].url+'percent',  '0');
+        			//this.localSt.store(this.global.region[x].regiondata.pokedexes[y].url, res.pokemon_entries);
+        			//this.localSt.store(this.global.region[x].regiondata.pokedexes[y].url+'percent',  '0');
 			  	this.global.region[x].regiondata.pokedexes[y].pokemon_entries=res.pokemon_entries
 			  	this.global.region[x].regiondata.pokedexes[y].percent=0
 			  	this.loadpokedexperregion(x,++y)
@@ -144,8 +144,8 @@ export class HomeComponent implements OnInit {
 				  .map(response => response.json())
 				  .subscribe(res => {			
 
-        			this.localSt.store(this.global.region[x].regiondata.pokedexes[y].pokemon_entries[z].pokemon_species.url, res);
-        			this.localSt.store(this.global.region[x].regiondata.pokedexes[y].url+'percent',  (z+1).toString());
+        			//this.localSt.store(this.global.region[x].regiondata.pokedexes[y].pokemon_entries[z].pokemon_species.url, res);
+        			//this.localSt.store(this.global.region[x].regiondata.pokedexes[y].url+'percent',  (z+1).toString());
 
 
 				  	this.global.region[x].regiondata.pokedexes[y].percent = z+1

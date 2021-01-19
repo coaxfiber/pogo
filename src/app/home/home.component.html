@@ -12,9 +12,16 @@
 			</mat-form-field>
 			<div *ngFor="let b of a.regiondata.pokedexes">
 				<div *ngIf="a.selectedpokedex==b.name" style="color: black">
-					<div style="padding: 10px;" *ngIf="b.pokemon_entries!=undefined">
-						<div  *ngFor="let c of b.pokemon_entries">
-							{{ c.entry_number }}
+					<div style="padding: 10px;overflow: auto;clear: both;" *ngIf="b.pokemon_entries!=undefined">
+						<div  *ngFor="let c of b.pokemon_entries" style="width: 100px; height: 150px; float: left; margin: 10px;background-color: pink">
+							<div  *ngIf="c.details!=undefined" style="padding: 10px">
+								<span style="font-size: 10px">Pokedex entry #{{c.entry_number}}</span><br>
+								<img src="https://pokeres.bastionbot.org/images/pokemon/{{c.details.id}}.png" style="width: 100%">
+								#{{ c.details.id }} 
+							</div>
+							<div style="text-align: center;margin-top: 20px" *ngIf="c.details==undefined">
+								Loading Details
+							</div>
 						</div>
 					</div>
 				</div>
